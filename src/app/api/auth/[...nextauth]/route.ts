@@ -4,8 +4,14 @@ import NextAuth from "next-auth";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt";
-export const nextOptions : NextAuthOptions = {
+import { randomBytes, randomUUID } from "crypto";
+const nextOptions : NextAuthOptions = {
   adapter:PrismaAdapter(prisma),
+  session:{
+    strategy:'jwt',
+    maxAge:30*24*60*60,
+    
+  },
   pages:{
     signIn:'/auth',
     
@@ -17,7 +23,10 @@ export const nextOptions : NextAuthOptions = {
         password: {  label: "Password", type: "password", placeholder:"********" }
       },
       async authorize(credentials,req) {
-        console.log('aq')
+      
+      console.log('aq')
+     
+     
       const res = await prisma.user.findMany({
         where:{
           email:credentials?.email

@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server"
 import {hash} from 'bcrypt'
 import { prisma } from "@/app/services/database"
+import { getToken } from "next-auth/jwt"
+
 export  async function POST(req:Request) {
   try{
     const {email,password} = await req.json()
@@ -14,6 +16,7 @@ export  async function POST(req:Request) {
         password:hashedPass
       }
     })
+   
   } catch(e){
     console.log(e)
   }
