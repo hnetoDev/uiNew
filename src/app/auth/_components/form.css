@@ -11,8 +11,28 @@
 .swiper-wrapper{
   background: #000;
 }
-
+.sc{
+  scrollbar-width: none;
+}
 .css{
   animation-name: fadeLeft;
   animation-duration: 1s;
+  
+}
+
+@keyframes fadeIn{
+  0%{
+    opacity: 0.3;
+    transform: translateY(+46px);
+  }
+  100%{
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.css2{
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  
 }

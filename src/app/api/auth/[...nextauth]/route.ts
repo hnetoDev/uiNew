@@ -24,28 +24,26 @@ const nextOptions : NextAuthOptions = {
       },
       async authorize(credentials,req) {
       
-      console.log('aq')
+      console.log('sig')
      
-     
-      const res = await prisma.user.findMany({
+      const res = await prisma.adm.findMany({
         where:{
           email:credentials?.email
         }
       })
       const user = res[0];
-      console.log(user)
       
-      const passwordCorret = await compare(credentials?.password || '', user.password!)
-      console.log(passwordCorret)
+      const passwordCorret = await compare(credentials?.password || '', user.password)
+   
 
       if(passwordCorret){
+        console.log('pass correct')
         return{
           id:user.id,
           email:user.email,
         }
       }
-      console.log('errado')
-      
+
        return null
       }
     })

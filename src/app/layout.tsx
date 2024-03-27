@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 
 
 const myFont = JetBrains_Mono({
-  weight:['700'],
+  weight:['300'],
   subsets:['latin']
 })
 
@@ -25,7 +25,7 @@ export default function RootLayout({
       <head>
      
       </head>
-      <body className={`overflow-hidden`}>
+      <body className={` overflow-hidden  `}>
         <div className={myFont.className}>
           {children}
           <Toaster/>

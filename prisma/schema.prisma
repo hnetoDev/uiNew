@@ -19,8 +19,10 @@ model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique
   userId       String
+  admId        String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  adm          Adm      @relation(fields: [admId], references: [id], onDelete: Cascade)
 }
 
 model User {
@@ -30,9 +32,18 @@ model User {
   password      String?
   cpf           String?
   fone          String?
-      
+  emerge        String?
+  active        String?
+  mensalidade   String?    
   emailVerified DateTime?
   image         String?
+  sessions      Session[]
+}
+
+model Adm{
+  id            String  @id @default(cuid())
+  email         String 
+  password      String
   sessions      Session[]
 }
 
@@ -42,11 +53,4 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
-}
-
-model Produtos {
-  id         String              @id @default(cuid())
-  image      String
-  name       String 
-  price      String
 }
