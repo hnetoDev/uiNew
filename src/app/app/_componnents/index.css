@@ -1,3 +1,13 @@
+.ant-drawer-body {
+  background-color: rgb(24 24 27);
+  color: #fff;
+  height: calc(100vh - 55px);
+}
+.ant-drawer-header {
+  background-color: rgb(24 24 27);
+  border-radius: 0;
+}
+
 @keyframes fadeLeft{
   0%{
     opacity: 0.3;
@@ -8,16 +18,7 @@
     transform: translateX(0px);
   }
 }
-.swiper-wrapper{
-  background: #000;
-}
-.sc{
-  scrollbar-width: none;
-}
-.css{
-  animation-name: fadeLeft;
-  animation-duration: 1s;
-}
+
 
 @keyframes fadeIn{
   0%{
@@ -29,9 +30,13 @@
     transform: translateY(0px);
   }
 }
-
+.css{
+  animation-name: fadeLeft;
+  animation-duration: 1s;
+}
 .css2{
   animation-name: fadeIn;
   animation-duration: 1s;
-  
 }
+
+

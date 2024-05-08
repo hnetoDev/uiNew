@@ -1,3 +1,8 @@
+.classePai:hover .classeFilho{
+  color: white;
+}
+
+
 @keyframes fadeLeft{
   0%{
     opacity: 0.3;
@@ -8,16 +13,7 @@
     transform: translateX(0px);
   }
 }
-.swiper-wrapper{
-  background: #000;
-}
-.sc{
-  scrollbar-width: none;
-}
-.css{
-  animation-name: fadeLeft;
-  animation-duration: 1s;
-}
+
 
 @keyframes fadeIn{
   0%{
@@ -29,9 +25,12 @@
     transform: translateY(0px);
   }
 }
-
+.css{
+  animation-name: fadeLeft;
+  animation-duration: 1s;
+}
 .css2{
   animation-name: fadeIn;
   animation-duration: 1s;
-  
 }
+

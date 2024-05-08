@@ -20,6 +20,7 @@ const config = {
     extend: {
 
       colors: {
+        
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -27,6 +28,7 @@ const config = {
         foreground: "hsl(var(--foreground))",
         bg:"#121212",
         card:'#1B1A1A',
+        shad:"#ffff0045",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

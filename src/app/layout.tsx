@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-sync-scripts */
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
@@ -23,9 +24,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-     
+      
       </head>
-      <body className={` overflow-hidden  `}>
+      <body className={`b bg-bg`}>
         <div className={myFont.className}>
           {children}
           <Toaster/>
