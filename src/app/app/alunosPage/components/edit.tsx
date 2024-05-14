@@ -3,7 +3,7 @@ import { Aluno } from "@/app/types";
 import { useForm } from "react-hook-form";
 import { IoTrashOutline } from "react-icons/io5";
 import { MdOutlineEdit } from "react-icons/md";
-import '../global.css'
+import '../../global.css'
 export function Edite({user}: {user:Aluno}){
   const headers = new Headers({
     "Content-type":"aplication/json"
@@ -74,7 +74,11 @@ export function Edite({user}: {user:Aluno}){
         <h1 className="font-bold">Editar</h1>
        </button>
        <button className="p-3 max-sm:px-2 flex border border-red-500 rounded-lg items-center justify-center max-sm:space-x-1 space-x-2">
-        <IoTrashOutline className="text-red-500" />
+        <IoTrashOutline onClick={async()=>{
+          const res = await fetch(`http://localhost:8000/api/user/delete/${user.id}`,{
+            method:'DELETE'
+          })
+        }} className="text-red-500" />
         <h1 className="font-bold text-red-500">Apagar</h1>
        </button>
        

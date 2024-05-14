@@ -1,26 +1,34 @@
-
+'use client'
 import { Aluno } from "@/app/types"
-import { CardAluno } from "../_componnents/cardAluno"
+import { CardAluno } from "./components/cardAluno"
 import { IoPersonAddOutline } from "react-icons/io5";
 import { FaAward, FaBackward, FaForward, FaSearch } from "react-icons/fa";
 import { CiFilter } from "react-icons/ci";
 import './style.css'
 import {useSwipeable} from 'react-swipeable'
 import Swipeable from "../_componnents/swipeable";
-import { useState } from "react";
-import { Alunos } from "../_componnents/alunos";
-import { CaixaPesquisa } from "../_componnents/caixaPesquisa";
+import { useEffect, useState } from "react";
+import { Alunos } from "./components/alunos";
+import { CaixaPesquisa } from "./components/caixaPesquisa";
 
 
 
-export default async function AlunosPage(){
-  const data = await fetch('https://api-b6gjphh37-hnetos-projects.vercel.app/api/user',{
-    method:'GET',
-  })
- 
+export default function AlunosPage(){
+  const [data,setData] = useState<Aluno[]>();
 
-  const resUser: Aluno[] = await data.json()
+  useEffect(()=>{
 
+    async function getData(){
+      const data = await fetch('http://localhost:8000/api/user',{
+      method:'GET',
+  });
+   const resUser: Aluno[] = await data.json()
+   setData(resUser)
+    }
+    
+   getData()
+
+  },[])
   let count = 0
   return(
     
@@ -46,7 +54,7 @@ export default async function AlunosPage(){
             <h1 className="text-white m-auto">Status</h1>
           </div>
         </div>
-        <Alunos data={resUser}/>
+        {data ? <Alunos data={data!}/> : null}
       </div>
     </div>
   )

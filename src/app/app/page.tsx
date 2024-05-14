@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Aluno } from "../types"
-import { CardAluno } from "./_componnents/cardAluno";
+import { CardAluno } from "./alunosPage/components/cardAluno";
 import { ChartAlunos} from "./charts/chartAlunos";
 import { ChartBruto } from "./charts/ChartBruto";
 import './global.css'

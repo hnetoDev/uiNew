@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { CiFilter } from "react-icons/ci";
 import { FaSearch } from "react-icons/fa";
 import { IoPersonAddOutline } from "react-icons/io5";
-import MyModal from "./dialog";
+import MyModal from "../../_componnents/dialog";
 import { Add } from "./criar";
 
 export function CaixaPesquisa(){

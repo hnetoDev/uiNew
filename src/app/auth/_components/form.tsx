@@ -46,8 +46,8 @@ export function Form(){
         title:'Logado com sucesso',
         duration:1000
     })
-    
-      return router.push('/app');
+      router.push('/app');
+      return
       
     }
     

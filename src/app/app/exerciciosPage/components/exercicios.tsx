@@ -1,25 +1,42 @@
 'use client'
-
-import { Aluno } from "@/app/types"
-import { CardAluno } from "./cardAluno"
-import Swipeable from "./swipeable"
 import { useState } from "react"
+import Swipeable from "../../_componnents/swipeable"
+import { CardExercicio } from "./cardExercicio"
 import { FaBackward, FaForward } from "react-icons/fa"
-import './index.css'
-export function Alunos({data}:{data:Aluno[]}){
+import { Exercicio } from "@/app/types"
 
+export function Exercicios(){
+  const data:Exercicio[] = [
+    {
+    title:'Rosca alternada',
+    desc:'faca isso aquilo',
+    img:'1',
+    id:'1'
+  },
+  {
+    title:'Rosca na polia',
+    desc:'faca isso aquilo',
+    img:'1',
+    id:'2'
+  },
+  {
+    title:'Rosca sccot',
+    desc:'faca isso aquilo',
+    img:'1',
+    id:'3'
+  }
+]
 
   let count = 1
   const [page,setPage] = useState(count)
   const pagesTotal = Math.floor(data.length / 10) + Math.round(data.length % 10)
   const [nSlice, setSlice] = useState([0,10])
-  const user = data.slice(nSlice[0],nSlice[1])
-  console.log(user)
+  const treino = data.slice(nSlice[0],nSlice[1])
   return <div className="w-full css2 max-sm:overflow-x-auto overflow-x-hidden ">
-  {user.map(u =>{
+  {treino.map(u =>{
   count++;
   return <div key={`${u.id}`} className={`${count % 2 === 0 || count === 0 ? 'bg-zinc-900 p-3 rounded-lg' : 'bg-bg p-3 rounded-lg'} w-full `}>
-  <Swipeable aluno={u}> <CardAluno {...u}/> </Swipeable>
+  <Swipeable treino={u} > <CardExercicio {...u}/> </Swipeable>
 </div>
   })}
   <div className="flex">

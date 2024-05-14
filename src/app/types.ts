@@ -16,6 +16,13 @@ export type Treino = {
   id:String
 }
 
+export type Exercicio = {
+  title:String,
+  desc:String,
+  img:String,
+  id:String
+}
+
 export type DrawerProps = {
   setOpen:React.Dispatch<React.SetStateAction<boolean>>,
   isOpen:boolean

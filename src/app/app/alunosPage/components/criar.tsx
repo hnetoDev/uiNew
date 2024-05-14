@@ -3,15 +3,16 @@ import { Aluno } from "@/app/types";
 import { useForm } from "react-hook-form";
 import { IoPersonAddOutline, IoTrashOutline } from "react-icons/io5";
 import { MdOutlineEdit } from "react-icons/md";
-import '../global.css'
+import '../../global.css'
 export function Add(){
   const headers = new Headers({
-    "Content-type":"aplication/json"
+    "Content-type":"aplication/json",
+    "Access-Control-Allow-Origin": "*",
   })
   const form = useForm()
   const update =  form.handleSubmit(async (data) =>{
     console.log(data.name)
-    const res = await fetch(`https://api-nvjt0eai8-hnetos-projects.vercel.app/api/user`,{
+    const res = await fetch(`http://localhost:8000/api/user`,{
       method:'POST',
       body:JSON.stringify({
         name:data.name,
@@ -19,9 +20,10 @@ export function Add(){
         email:data.email,
         tel:data.tel,
         emerg:data.emerg,
+        password:data.password
       }),
       headers:headers,
-      mode:'no-cors'
+    
     })
     if(res.ok){
       console.log(res.json())
@@ -59,6 +61,10 @@ export function Add(){
         <div className="flex flex-col justify-stretch" >
             <h1 className="text-zinc-300 font-bold">Tel. Emergência:</h1>
             <input className="px-3 py-3 text-zinc-300 bg-bg rounded-lg " type="text" {...form.register('emerg')}  />
+        </div>
+        <div className="flex flex-col justify-stretch" >
+            <h1 className="text-zinc-300 font-bold">Tel. Emergência:</h1>
+            <input className="px-3 py-3 text-zinc-300 bg-bg rounded-lg " type="text" {...form.register('password')}  />
         </div>
         <div className="flex flex-col justify-stretch" >
           <select className="bg-bg text-zinc-300 rounded-lg p-3" name="planos" id="planos">

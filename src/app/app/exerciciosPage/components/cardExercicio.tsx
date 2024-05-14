@@ -1,15 +1,16 @@
 'use client'
 
-import { Aluno, Treino } from "@/app/types"
+import { Aluno, Exercicio, Treino } from "@/app/types"
 import { MdOutlineEdit } from "react-icons/md";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
 import Link from "next/link";
 import {useRouter } from "next/navigation";
-import MyModal from "./dialog";
+import MyModal from "../../_componnents/dialog";
 import { Edit } from "lucide-react";
-import { Edite } from "./edit";
+import { Edite } from "../../alunosPage/components/edit";
+import { EditeExercicio } from "./editExercicio";
 
-export const CardTreino = (treinoCurrent:Treino):JSX.Element=>{
+export const CardExercicio = (exercicioCurrent:Exercicio):JSX.Element=>{
   
   const route = useRouter()
   return <div className="flex w-full items-center justify-between">
@@ -19,8 +20,8 @@ export const CardTreino = (treinoCurrent:Treino):JSX.Element=>{
 
       </div>
 
-      <div className="w-56 max-sm:w-20 ">
-        <h1 className="text-zinc-400 text-sm font-bold m-auto break-words">{treinoCurrent.title}</h1>
+      <div className="w-56 max-sm:w-36 ">
+        <h1 className="text-zinc-400 text-sm font-bold m-auto break-words">{exercicioCurrent.title}</h1>
       </div>
 
     
@@ -28,9 +29,9 @@ export const CardTreino = (treinoCurrent:Treino):JSX.Element=>{
 
     </div>
 
-    <div className="flex space-x-5">
+    <div className="flex max-sm:w-0  space-x-5">
       <MyModal  icon={<MdOutlineEdit className=" text-white hover:text-yellow-400" size={24} />}>
-        <h1>a</h1>
+        <EditeExercicio {...exercicioCurrent}/>
       </MyModal>
       
     </div>

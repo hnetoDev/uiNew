@@ -5,7 +5,7 @@ import { MdOutlineEdit } from "react-icons/md";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
 import Link from "next/link";
 import {useRouter } from "next/navigation";
-import MyModal from "./dialog";
+import MyModal from "../../_componnents/dialog";
 import { Edit } from "lucide-react";
 import { Edite } from "./edit";
 
