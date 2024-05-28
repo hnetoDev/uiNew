@@ -48,7 +48,7 @@ export function ChartBruto(){
               
               },
               labels:['Ativos','Inativos','Atrasados'],
-            }} type="line" series={series} width={'100%'} height={250} />
+            }} type="line" series={series} width={'100%'} height={280} />
         </>
     )
     

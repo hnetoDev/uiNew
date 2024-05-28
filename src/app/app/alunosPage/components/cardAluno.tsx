@@ -2,14 +2,36 @@
 
 import { Aluno } from "@/app/types"
 import { MdOutlineEdit } from "react-icons/md";
-import { FaRegMoneyBillAlt } from "react-icons/fa";
+import { FaCheckCircle, FaRegMoneyBillAlt } from "react-icons/fa";
 import Link from "next/link";
 import {useRouter } from "next/navigation";
 import MyModal from "../../_componnents/dialog";
 import { Edit } from "lucide-react";
 import { Edite } from "./edit";
+import { toast } from "@/components/ui/use-toast";
 
 export const CardAluno = (userCurrent:Aluno):JSX.Element=>{
+
+  const payment = async(payment:boolean)=>{
+
+    const res = await fetch(`http://localhost:8000/api/user/updatePayment/${userCurrent.id}`,{
+      method:'PUT',
+      body:JSON.stringify({
+        active:payment
+      }),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+      mode:'cors'
+    })
+    toast({
+      className:"bg-bg border border-yellow-300 text-green-400 ",
+      title:'Pagamento aprovado com sucesso',
+      action: <FaCheckCircle size={25}/>,
+      duration:1000
+  })
+  }
   const route = useRouter()
   return <div className="flex w-full items-center justify-between">
 
@@ -18,7 +40,7 @@ export const CardAluno = (userCurrent:Aluno):JSX.Element=>{
 
       </div>
 
-      <div className="w-20 max-sm:w-16 ">
+      <div className="w-40 max-sm:w-16 ">
         <h1 className="text-zinc-400 text-sm font-bold m-auto break-words">{userCurrent.name}</h1>
       </div>
 
@@ -31,7 +53,10 @@ export const CardAluno = (userCurrent:Aluno):JSX.Element=>{
                     Confirmar o pagamento do plano do aluno: {userCurrent.name}
                   </p>
                   <div className="mt-4 space-x-3">
-                    <button
+                    <button onClick={()=>{
+                      payment(true)
+                     
+                    }}
                       className="rounded-lg bg-green-400 py-2 px-3 font-bold"
                       
                     >
@@ -48,7 +73,7 @@ export const CardAluno = (userCurrent:Aluno):JSX.Element=>{
       </div> 
 
       <div className="w-48  break-words ">
-        <h1 className=" text-zinc-400 text-sm max-sm:invisible font-bold text-center break-words">{userCurrent.email}</h1>
+        <h1 className=" text-yellow-300 text-sm max-sm:invisible font-bold text-center break-words">{userCurrent.email}</h1>
       </div>
 
       <div className="w-20 max-sm:w-0 max-sm:invisible">
@@ -61,7 +86,7 @@ export const CardAluno = (userCurrent:Aluno):JSX.Element=>{
       <MyModal  icon={<MdOutlineEdit className=" text-white hover:text-yellow-400" size={24} />}>
         <Edite user={userCurrent}/>
       </MyModal>
-      <MyModal  icon={<FaRegMoneyBillAlt className="text-green-400" size={24}  />}>
+      <MyModal  icon={<FaRegMoneyBillAlt className="text-green-400 cursor-pointer" size={24}  />}>
         <h1 className="text-xl font-medium text-white">
                     Pagamentos
                   </h1>
@@ -69,7 +94,9 @@ export const CardAluno = (userCurrent:Aluno):JSX.Element=>{
                     Confirmar o pagamento do plano do aluno: {userCurrent.name}
                   </p>
                   <div className="mt-4 space-x-3">
-                    <button
+                    <button onClick={()=>{
+                      payment(true)
+                    }}
                       className="rounded-lg bg-green-400 py-2 px-3 font-bold"
                       
                     >
@@ -77,9 +104,11 @@ export const CardAluno = (userCurrent:Aluno):JSX.Element=>{
                     </button>
                     <button
                       className="rounded-lg border border-red-500 py-2 px-3 font-bold text-red-500 "
-                      
+                      onClick={()=>{
+                        payment(false)
+                      }}
                     >
-                      Sair
+                      Inativar
                     </button>
                   </div>
       </MyModal>

@@ -2,9 +2,10 @@
 import { Button, Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react'
 import { ReactNode, useState } from 'react'
 import { FaRegMoneyBillAlt } from 'react-icons/fa'
+import { IoClose, IoCloseCircle } from 'react-icons/io5'
 import { IconType } from 'react-icons/lib'
-
-export default function MyModal({children,icon}:Readonly<{children:ReactNode,icon:ReactNode}>) {
+import './index.css'
+export default function MyModal({children,icon,small}:Readonly<{children:ReactNode,small?:boolean,icon:ReactNode}>) {
   let [isOpen, setIsOpen] = useState(false)
   
 
@@ -36,7 +37,8 @@ export default function MyModal({children,icon}:Readonly<{children:ReactNode,ico
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <DialogPanel className="w-1/2 max-xl:w-3/5 max-sm:w-2/3 max-sm:h-2/3 rounded-lg  bg-zinc-900 p-6 ">
+                <DialogPanel className={`${small ? 'w-1/3' : 'w-2/3'} max-xl:w-3/5 max-sm:w-2/3 max-sm:h-2/3 rounded-lg  bg-zinc-900 p-6`}>
+                  <div  onClick={close} className=' fixed right-4 flex css2 cursor-pointer  justify-end' ><IoCloseCircle size={30} className='text-red-500  w-max text-right  rounded-full'/></div>
                  {children}
                 </DialogPanel>
               </TransitionChild>

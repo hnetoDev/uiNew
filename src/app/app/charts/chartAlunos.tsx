@@ -1,16 +1,35 @@
 'use client' // if you use app dir, don't forget this line
 
+import { Aluno } from "@/app/types";
 import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 
 export function ChartAlunos(){
+  const [data,setData] = useState<number[]>();
 
-    
+
+  useEffect(()=>{
+    async function getData() {
+      const res = await fetch('http://localhost:8000/api/user')
+      const aluno:Aluno[] = await res.json();
+
+      const alunosAtivos = aluno.filter(a => a.active === true)
+      console.log(alunosAtivos)
+      const alunosInativos = aluno.length - alunosAtivos.length
+
+
+      setData([alunosAtivos.length,alunosInativos])
+    }
+
+    getData()
+
+  },[])
 
     const series = [{
         name: 'Alunos',
-        data: [150,100,30]
+        data: data ? [data![0],data![1],1] : [0,0,0]
       }]
 
     return(
@@ -37,7 +56,7 @@ export function ChartAlunos(){
               
               },
               labels:['Ativos','Inativos','Atrasados'],
-            }} type="bar" series={series} width={'100%'} height={250}/>
+            }} type="bar" series={series} width={'100%'} height={280}/>
         </>
     )
     

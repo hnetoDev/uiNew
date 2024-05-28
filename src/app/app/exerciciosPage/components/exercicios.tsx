@@ -36,7 +36,7 @@ export function Exercicios(){
   {treino.map(u =>{
   count++;
   return <div key={`${u.id}`} className={`${count % 2 === 0 || count === 0 ? 'bg-zinc-900 p-3 rounded-lg' : 'bg-bg p-3 rounded-lg'} w-full `}>
-  <Swipeable treino={u} > <CardExercicio {...u}/> </Swipeable>
+  <Swipeable treino={u} > <CardExercicio editable={false} exercicioCurrent={u}/> </Swipeable>
 </div>
   })}
   <div className="flex">

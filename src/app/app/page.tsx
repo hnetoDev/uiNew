@@ -6,10 +6,12 @@ import { CardAluno } from "./alunosPage/components/cardAluno";
 import { ChartAlunos} from "./charts/chartAlunos";
 import { ChartBruto } from "./charts/ChartBruto";
 import './global.css'
+import { ChartPlanos } from "./charts/chartPlanos";
 
 
-// eslint-disable-next-line @next/next/no-async-client-component
-export default async function AppPage(){
+
+
+export default function AppPage(){
  
 
 
@@ -24,9 +26,13 @@ export default async function AppPage(){
           <ChartAlunos/>
         </div>
 
-        <div className="flex flex-col  space-y-2 p-4 rounded-lg bg-zinc-900">
+        <div className="flex flex-col   space-y-2 p-4 rounded-lg bg-zinc-900">
           <h1 className="text-center text-white font-bold text-2xl">Capital bruto</h1>
          <ChartBruto/>
+        </div>
+        <div className="flex flex-col  space-y-2 p-4 rounded-lg bg-zinc-900">
+          <h1 className="text-center text-white font-bold text-2xl">Alunos por Plano</h1>
+         <ChartPlanos/>
         </div>
 
         <div className="w-full flex flex-col justify-between bg-zinc-900 rounded-lg  p-6 ">
@@ -39,6 +45,8 @@ export default async function AppPage(){
             <button className="bg-yellow-400 font-bold p-4 rounded-lg text-bg">Enviar</button>
           </div>
         </div>
+
+        
           
        
       </div>

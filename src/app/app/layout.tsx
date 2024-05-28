@@ -65,7 +65,7 @@ export default function Layout({children}:Readonly<{
                   <h1 className="text-zinc-400 max-sm:w-0  max-sm:text-transparent">Treinos</h1>
                 </div>
               </Link>
-              <Link href={'/alunosPage'} className="flex items-center justify-start space-x-2">
+              <Link href={'/app/financeiroPage'} className="flex items-center justify-start space-x-2">
                 <div className="flex space-x-2">
                   <FaRegMoneyBillAlt size={22} className="text-yellow-300 m-auto  font-bold"/>
                   <h1 className="text-zinc-400 max-sm:w-0 max-sm:text-transparent">Financeiro</h1>

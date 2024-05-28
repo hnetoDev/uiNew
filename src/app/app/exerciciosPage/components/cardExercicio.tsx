@@ -10,7 +10,7 @@ import { Edit } from "lucide-react";
 import { Edite } from "../../alunosPage/components/edit";
 import { EditeExercicio } from "./editExercicio";
 
-export const CardExercicio = (exercicioCurrent:Exercicio):JSX.Element=>{
+export const CardExercicio = ({exercicioCurrent,editable}:{editable:boolean,exercicioCurrent:Exercicio}):JSX.Element=>{
   
   const route = useRouter()
   return <div className="flex w-full items-center justify-between">
@@ -29,12 +29,12 @@ export const CardExercicio = (exercicioCurrent:Exercicio):JSX.Element=>{
 
     </div>
 
-    <div className="flex max-sm:w-0  space-x-5">
+    {editable ? <div className="flex max-sm:w-0  space-x-5">
       <MyModal  icon={<MdOutlineEdit className=" text-white hover:text-yellow-400" size={24} />}>
         <EditeExercicio {...exercicioCurrent}/>
       </MyModal>
       
-    </div>
+    </div> : null}
     
 
   </div>

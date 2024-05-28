@@ -8,12 +8,21 @@ export type Aluno = {
   emerg:String   
   active:boolean
   mensalidade:String
+  plano:String
 }
 export type Treino = {
   title: String
   img:String
   desc:String
   id:String
+}
+
+export type Plano = {
+  id:String
+  name: String
+  value:String
+  duration:String
+  qtd:Number
 }
 
 export type Exercicio = {

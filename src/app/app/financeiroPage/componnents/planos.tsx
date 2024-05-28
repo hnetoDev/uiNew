@@ -1,16 +1,18 @@
 'use client'
 
-import { Aluno } from "@/app/types"
-import { CardAluno } from "./cardAluno"
+import { Plano } from "@/app/types"
 import Swipeable from "../../_componnents/swipeable"
 import { useState } from "react"
 import { FaBackward, FaCheckCircle, FaForward } from "react-icons/fa"
 import '../style.css'
-import { Edite } from "./edit"
+
 import MyModal from "../../_componnents/dialog"
 import { useRouter } from "next/navigation"
 import { toast } from "@/components/ui/use-toast"
-export function Alunos({data,search}:{data:Aluno[],search:string}){
+import { CardEntrada } from "../../financeiroPage/componnents/cardEntrada"
+import { Edite } from "../../alunosPage/components/edit"
+import { CardPlano } from "./cardPlano"
+export function Planos({data}:{data:Plano[]}){
   const routes = useRouter()
 
   let count = 1
@@ -19,37 +21,37 @@ export function Alunos({data,search}:{data:Aluno[],search:string}){
   if(data.length < 10){
     pagesTotal = 1
   }
-  const searched = search !== '' ? data.filter(v => v.name.toLowerCase().startsWith(search)) : null
+ 
   const [nSlice, setSlice] = useState([0,10])
   const user = data.slice(nSlice[0],nSlice[1])
-  console.log(user)
+ 
   return <div className="w-full css2 max-sm:overflow-x-auto overflow-x-hidden ">
-  {search === '' ? user.map(u =>{
+  {user.map(u =>{
   count++;
-  return <div key={`${u.id}`} className={`${count % 2 === 0 || count === 0 ? 'bg-zinc-900 p-3 rounded-lg' : 'bg-bg p-3 rounded-lg'} w-full `}>
-  <Swipeable aluno={u} childrenExit={
+  return <div key={`${u.id}`} className={`${count % 2 === 0 || count === 0 ? 'bg-zinc-900 p-3 rounded-lg' : 'bg-bg p-3 rounded-lg'} w-full h-max`}>
+  <Swipeable plano={u} childrenExit={
     <div>
         <h1 className="text-xl font-medium text-white">
                     Exclusão
                   </h1>
                   <p className="mt-2 text-sm text-white/50">
-                    Confirmar a exclusão da conta do aluno: {u.name}
+                    Confirmar a exclusão do plano: {u.name}
                   </p>
                   <div className="mt-4 space-x-3">
                     <button
                       className="rounded-lg bg-green-400 py-2 px-3 font-bold"
                       onClick={async()=>{
-                        const resp = await fetch(`http://localhost:8000/api/user/delete/${u.id}`,{
+                        const resp = await fetch(`http://localhost:8000/api/user/planos/delete/${u.id}`,{
                           method:"DELETE"
                         })
                         toast({
                           className:"bg-bg border border-yellow-300 text-red-500 ",
-                          title:'Aluno excluido com sucesso',
+                          title:'Plano excluido com sucesso',
                           duration:1000,
                           action: <FaCheckCircle size={25}/>
                       })
                         
-                        routes.push('/app/alunosPage')
+                        routes.push('/app/financeiroPage')
                         
                       }}
                     >
@@ -58,45 +60,9 @@ export function Alunos({data,search}:{data:Aluno[],search:string}){
                     
                   </div>
     </div>
-  } childrenMyModal={<Edite user={u}/>} > <CardAluno {...u}/> </Swipeable>
+  } > <CardPlano {...u}/> </Swipeable>
 </div>
-  }) : searched!.map(u =>{
-    count++;
-    return <div key={`${u.id}`} className={`${count % 2 === 0 || count === 0 ? 'bg-zinc-900 p-3 rounded-lg' : 'bg-bg p-3 rounded-lg'} w-full `}>
-    <Swipeable aluno={u} childrenExit={
-      <div>
-          <h1 className="text-xl font-medium text-white">
-                      Exclusão
-                    </h1>
-                    <p className="mt-2 text-sm text-white/50">
-                      Confirmar a exclusão da conta do aluno: {u.name}
-                    </p>
-                    <div className="mt-4 space-x-3">
-                      <button
-                        className="rounded-lg bg-green-400 py-2 px-3 font-bold"
-                        onClick={async()=>{
-                          const resp = await fetch(`http://localhost:8000/api/user/delete/${u.id}`,{
-                            method:"DELETE",
-                            headers: {
-                              'Accept': 'application/json',
-                              'Content-Type': 'application/json'
-                          },
-                            body:JSON.stringify({
-                              planoId:u.plano
-                            })
-                          })
-                          routes.push('/app/alunosPage')
-                          
-                        }}
-                      >
-                        Confirmar
-                      </button>
-                      
-                    </div>
-      </div>
-    } childrenMyModal={<Edite user={u}/>} > <CardAluno {...u}/> </Swipeable>
-  </div>
-    })  } 
+  }) }
   <div className="flex">
           <div className="flex p-4 space-x-3 items-center">
             <div>
