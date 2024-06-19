@@ -5,27 +5,8 @@ import { CardExercicio } from "./cardExercicio"
 import { FaBackward, FaForward } from "react-icons/fa"
 import { Exercicio } from "@/app/types"
 
-export function Exercicios(){
-  const data:Exercicio[] = [
-    {
-    title:'Rosca alternada',
-    desc:'faca isso aquilo',
-    img:'1',
-    id:'1'
-  },
-  {
-    title:'Rosca na polia',
-    desc:'faca isso aquilo',
-    img:'1',
-    id:'2'
-  },
-  {
-    title:'Rosca sccot',
-    desc:'faca isso aquilo',
-    img:'1',
-    id:'3'
-  }
-]
+export function Exercicios({data}:{data:Exercicio[]}){
+ 
 
   let count = 1
   const [page,setPage] = useState(count)
@@ -36,7 +17,7 @@ export function Exercicios(){
   {treino.map(u =>{
   count++;
   return <div key={`${u.id}`} className={`${count % 2 === 0 || count === 0 ? 'bg-zinc-900 p-3 rounded-lg' : 'bg-bg p-3 rounded-lg'} w-full `}>
-  <Swipeable treino={u} > <CardExercicio editable={false} exercicioCurrent={u}/> </Swipeable>
+  <Swipeable> <CardExercicio editable={false} exercicioCurrent={u}/> </Swipeable>
 </div>
   })}
   <div className="flex">

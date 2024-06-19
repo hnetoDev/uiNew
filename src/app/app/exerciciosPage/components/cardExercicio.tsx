@@ -21,7 +21,7 @@ export const CardExercicio = ({exercicioCurrent,editable}:{editable:boolean,exer
       </div>
 
       <div className="w-56 max-sm:w-36 ">
-        <h1 className="text-zinc-400 text-sm font-bold m-auto break-words">{exercicioCurrent.title}</h1>
+        <h1 className="text-zinc-400 text-sm font-bold m-auto break-words">{exercicioCurrent.name}</h1>
       </div>
 
     

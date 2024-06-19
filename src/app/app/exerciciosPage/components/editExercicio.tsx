@@ -6,7 +6,7 @@ import { IoAdd, IoTrashOutline } from "react-icons/io5"
 export function EditeExercicio(exercicio:Exercicio){
   const form = useForm()
   return <div className=" w-full  css  space-y-3 ">
-    <h1 className="text-white text-2xl text-center">Edite o Exercício: {exercicio.title} </h1>
+    <h1 className="text-white text-2xl text-center">Edite o Exercício: {exercicio.name} </h1>
     <div className="mx-auto rounded-lg space-y-3   p-6 ">
      <div className="flex max-sm:flex-col"> 
       <div className="w-2/5 max-sm:w-full first-letter:h-full ">
@@ -15,7 +15,7 @@ export function EditeExercicio(exercicio:Exercicio){
       <div className="ml-4 w-3/5 max-sm:w-full max-sm:ml-0 flex flex-col space-y-4">
         <div className="flex flex-col justify-stretch" >
             <h1 className="text-zinc-300 font-bold">Nome do exercício</h1>
-            <input className="px-3 py-3 text-zinc-300 bg-bg rounded-lg " type="text" {...form.register('title')}  />
+            <input className="px-3 py-3 text-zinc-300 bg-bg rounded-lg " type="text" {...form.register('name')}  />
           </div>
         <div className="flex flex-col justify-stretch" >
             <h1 className="text-zinc-300 font-bold">descrição</h1>

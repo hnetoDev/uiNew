@@ -7,28 +7,8 @@ import { useState } from "react"
 import { FaBackward, FaForward } from "react-icons/fa"
 import '../../global.css'
 import { CardTreino } from "./cardTreino"
-export function Treinos(){
+export function Treinos({data}:{data:Treino[]}){
 
-  const data:Treino[] = [
-    {
-    title:'Treino Evolution',
-    desc:'faca isso aquilo',
-    img:'1',
-    id:'1'
-  },
-  {
-    title:'Treino pump10',
-    desc:'faca isso aquilo',
-    img:'1',
-    id:'2'
-  },
-  {
-    title:'Treino Fernanddo Sardinha',
-    desc:'faca isso aquilo',
-    img:'1',
-    id:'3'
-  }
-]
 
   let count = 1
   const [page,setPage] = useState(count)

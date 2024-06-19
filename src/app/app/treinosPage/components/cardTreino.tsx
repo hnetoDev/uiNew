@@ -20,7 +20,7 @@ export const CardTreino = (treinoCurrent:Treino):JSX.Element=>{
       </div>
 
       <div className="w-56 max-sm:w-36 ">
-        <h1 className="text-zinc-400 text-sm font-bold m-auto break-words">{treinoCurrent.title}</h1>
+        <h1 className="text-zinc-400 text-sm font-bold m-auto break-words">{treinoCurrent.name}</h1>
       </div>
 
     

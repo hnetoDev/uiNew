@@ -5,7 +5,8 @@ import { Aluno } from "../types"
 import { CardAluno } from "./alunosPage/components/cardAluno";
 import { ChartAlunos} from "./charts/chartAlunos";
 import { ChartBruto } from "./charts/ChartBruto";
-import './global.css'
+import './global.css';
+
 import { ChartPlanos } from "./charts/chartPlanos";
 
 
@@ -17,11 +18,11 @@ export default function AppPage(){
 
   
   return(
-    <main className="h-screen w-full flex  bg-bg p-5 flex-col ">
-      <div className="grid grid-cols-3 css2  grid-rows-3 max-sm:grid-cols-1 gap-4">
+    <main className=" h-max w-full flex  p-5 flex-col ">
+      <div className="grid grid-cols-3 css2   grid-rows-2 max-sm:grid-cols-1 gap-4">
 
 
-        <div className="flex flex-col  space-y-2 p-4 rounded-lg  bg-zinc-900">
+        <div className="flex flex-col  space-y-2 p-4 rounded-lg shadowcss  bg-zinc-900">
           <h1 className="text-center text-white font-bold text-2xl">Alunos Cadastrados</h1>
           <ChartAlunos/>
         </div>

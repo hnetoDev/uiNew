@@ -9,25 +9,74 @@ import MyModal from "../../_componnents/dialog";
 import { Edit } from "lucide-react";
 import { Edite } from "./edit";
 import { toast } from "@/components/ui/use-toast";
+import { useState } from "react";
+import Image from "next/image";
+import { env } from "process";
 
 export const CardAluno = (userCurrent:Aluno):JSX.Element=>{
 
-  const payment = async(payment:boolean)=>{
 
-    const res = await fetch(`http://localhost:8000/api/user/updatePayment/${userCurrent.id}`,{
+  const [pix,setPix] = useState<boolean>(false)
+  const [dinheiro,setDinheiro] = useState<boolean>(false)
+  const [inativa,setInativa] = useState<boolean>(false)
+  const [data,setData] = useState<String>();
+
+
+
+
+
+
+  const payment = async()=>{
+    console.log(data)
+    if(!pix && !dinheiro && !inativa){
+      return toast({
+        className:"bg-bg border border-yellow-300 text-red-500 ",
+        title:'Selecione um metodo de pagamento',
+        action: <FaCheckCircle size={25}/>,
+        duration:1000
+    })
+    }
+    if(data === undefined){
+      return toast({
+        className:"bg-bg border border-yellow-300 text-red-500 ",
+        title:'Selecione a data do pagamento',
+        action: <FaCheckCircle size={25}/>,
+        duration:1000
+    })
+    }
+    let paymentS = inativa
+    if(userCurrent.active === true && !paymentS === true){
+      return toast({
+        className:"bg-bg border border-yellow-300 text-red-500 ",
+        title:'Aluno com mensalidade paga',
+        action: <FaCheckCircle size={25}/>,
+        duration:1000
+    })
+    }
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/updatePayment/${userCurrent.id}`,{
       method:'PUT',
       body:JSON.stringify({
-        active:payment
+        active:inativa ? false : true,
+        method:pix ? 'pix' : 'dinheiro',
+        date:data
       }),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     },
-      mode:'cors'
     })
-    toast({
+    if(res.status === 200){
+      return toast({
+        className:"bg-bg border border-yellow-300 text-green-400 ",
+        title:'Pagamento aprovado com sucesso',
+        action: <FaCheckCircle size={25}/>,
+        duration:1000
+    }) 
+    
+    }
+    return toast({
       className:"bg-bg border border-yellow-300 text-green-400 ",
-      title:'Pagamento aprovado com sucesso',
+      title:'Pagamento não aprovado por erro',
       action: <FaCheckCircle size={25}/>,
       duration:1000
   })
@@ -36,8 +85,8 @@ export const CardAluno = (userCurrent:Aluno):JSX.Element=>{
   return <div className="flex w-full items-center justify-between">
 
     <div className="flex space-x-12 items-center">
-      <div className="h-12 w-12 bg-yellow-400 rounded-full ">
-
+      <div className="h-12 w-12 flex justify-center items-center bg-yellow-400 rounded-full ">
+        <Image src={userCurrent.genero === 'm' ? '/images/gerente.png' : '/images/woman.png'} alt="man" width={25} height={25}/>
       </div>
 
       <div className="w-40 max-sm:w-16 ">
@@ -49,20 +98,33 @@ export const CardAluno = (userCurrent:Aluno):JSX.Element=>{
            <h1 className="text-xl font-medium text-white">
                     Pagamentos
                   </h1>
-                  <p className="mt-2 text-sm text-white/50">
-                    Confirmar o pagamento do plano do aluno: {userCurrent.name}
+                  <p className="mt-2 flex text-sm text-white/50">
+                    Confirmar o pagamento do plano do aluno <p className="text-yellow-400">: {userCurrent.name}</p>
                   </p>
+                  <input type="date" className="p-3 bg-bg"  />
                   <div className="mt-4 space-x-3">
                     <button onClick={()=>{
-                      payment(true)
+                     
                      
                     }}
                       className="rounded-lg bg-green-400 py-2 px-3 font-bold"
                       
                     >
-                      Confirmar
+                      PIX
                     </button>
-                    <button
+                    <button onClick={()=>{
+                      
+                     
+                    }}
+                      className="rounded-lg bg-green-400 py-2 px-3 font-bold"
+                      
+                    >
+                      dinheiro
+                    </button>
+                    <button onClick={()=>{
+                      
+                     
+                    }}
                       className="rounded-lg border border-red-500 py-2 px-3 font-bold text-red-500 "
                       
                     >
@@ -90,26 +152,62 @@ export const CardAluno = (userCurrent:Aluno):JSX.Element=>{
         <h1 className="text-xl font-medium text-white">
                     Pagamentos
                   </h1>
-                  <p className="mt-2 text-sm text-white/50">
-                    Confirmar o pagamento do plano do aluno: {userCurrent.name}
+                  <p className="mt-2 flex text-sm text-white/50">
+                    Confirmar o pagamento do plano do aluno <p className="text-yellow-400">: {userCurrent.name}</p>
                   </p>
+
+                  <div className="flex justify-between items-center">
+                  <div className="flex space-x-4 items-center">
+                  <input type="date" className="p-3 mt-4 rounded-lg bg-bg text-zinc-300" onChange={(d)=>{
+                    setData(d.target.value)
+                  }}  />
+                  
                   <div className="mt-4 space-x-3">
                     <button onClick={()=>{
-                      payment(true)
+                      setPix(true)
+                      setDinheiro(false)
+                      setInativa(false)
                     }}
-                      className="rounded-lg bg-green-400 py-2 px-3 font-bold"
+                      className={`rounded-lg ${pix ? 'bg-green-500 text-bg' : 'border border-green-400 text-green-400'} py-2 px-3 font-bold`}
                       
                     >
-                      Confirmar
+                      PIX
                     </button>
-                    <button
-                      className="rounded-lg border border-red-500 py-2 px-3 font-bold text-red-500 "
-                      onClick={()=>{
-                        payment(false)
-                      }}
+                    <button onClick={()=>{
+                      setPix(false)
+                      setDinheiro(true)
+                      setInativa(false)
+                    }}
+                    className={`rounded-lg ${dinheiro ? 'bg-green-500 text-bg' : 'border border-green-400 text-green-400'} py-2 px-3 font-bold`}
+                      
+                    >
+                      Dinheiro
+                    </button>
+                    <button onClick={()=>{
+                      setPix(false)
+                      setDinheiro(false)
+                      setInativa(true)
+                     
+                    }}
+                    className={`rounded-lg ${inativa ? 'bg-red-500 text-bg' : 'border border-red-400 text-red-400'} py-2 px-3 font-bold`}
+                      
                     >
                       Inativar
                     </button>
+                  </div>
+                  </div>
+                    <div className="mt-4">
+                    <button onClick={()=>{
+                      payment()
+                     
+                    }}
+                    className={`rounded-lg bg-yellow-400 py-2 px-3 font-bold`}
+                      
+                    >
+                      Concluir
+                    </button>
+
+                    </div>
                   </div>
       </MyModal>
     </div>

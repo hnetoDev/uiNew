@@ -41,7 +41,7 @@ export function Planos({data}:{data:Plano[]}){
                     <button
                       className="rounded-lg bg-green-400 py-2 px-3 font-bold"
                       onClick={async()=>{
-                        const resp = await fetch(`http://localhost:8000/api/user/planos/delete/${u.id}`,{
+                        const resp = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/planos/delete/${u.id}`,{
                           method:"DELETE"
                         })
                         toast({

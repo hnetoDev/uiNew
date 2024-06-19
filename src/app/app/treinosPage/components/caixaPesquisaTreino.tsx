@@ -1,4 +1,4 @@
-
+'use client'
 import { useRouter } from "next/navigation";
 import { CiFilter } from "react-icons/ci";
 import { FaSearch } from "react-icons/fa";
@@ -8,15 +8,27 @@ import { Add } from "../../alunosPage/components/criar";
 import '../../alunosPage/style.css'
 import { CgGym } from "react-icons/cg";
 import Link from "next/link";
-import {CriarTreino} from "./criarTreino";
+
+import { useState, useEffect } from "react";
+import { Exercicio } from "@/app/types";
 
 export function CaixaPesquisaTreino(){
   
+  const [data,setData] = useState<Exercicio[]>()
+  useEffect(()=>{
+    async function getData(){
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/exercicios`)
+      const exercicios:Exercicio[] = await res.json()
+      setData(exercicios)
+    }
+    getData()
+  },[])
+
   return <div className="w-full flex space-x-3 m-auto justify-center">
   <button className="bg-zinc-900 rounded-full p-4">
-    <MyModal icon={<IoAddOutline color="#fff000" size={30} />}>
-      <CriarTreino/>
-    </MyModal>
+    
+  <Link href='/app/treinosPage/criarTreino'><IoAddOutline color="#fff000" size={30}/></Link>
+    
       
    
   </button>

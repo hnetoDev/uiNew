@@ -48,8 +48,8 @@ export default function Swipeable({childrenMyModal,childrenExit,children,aluno,t
    threshold={0.2} className=" flex justify-between">
   <SwipeableListItem className=" flex justify-between"
     
-    leadingActions={leadingActions()}
-    trailingActions={trailingActions()}
+    leadingActions={childrenMyModal ? leadingActions(): null}
+    trailingActions={childrenExit ? trailingActions() : null }
     threshold={0.2}
     
 

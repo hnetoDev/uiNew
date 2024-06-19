@@ -1,5 +1,5 @@
 'use client'
-import { Aluno } from "@/app/types"
+import { Aluno, FilterType } from "@/app/types"
 import { CardAluno } from "./components/cardAluno"
 import { IoPersonAddOutline } from "react-icons/io5";
 import { FaAward, FaBackward, FaForward, FaSearch } from "react-icons/fa";
@@ -12,16 +12,23 @@ import { Alunos } from "./components/alunos";
 
 import MyModal from "../_componnents/dialog";
 import { Add } from "./components/criar";
-
+import { Filter } from "./components/filter";
+import { ChartAlunos } from "../charts/chartAlunos";
 
 
 export default function AlunosPage(){
+  const [filter,setFilter] = useState<string>()
   const [data,setData] = useState<Aluno[]>();
   const [search,setSearch] = useState<string>('');
   useEffect(()=>{
+    console.log(process.env.NEXT_PUBLIC_API_URL)
+    console.log(search)
     async function getData(){
-      const data = await fetch('http://localhost:8000/api/user',{
+      const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/${search ? search : false} ${filter ? filter : false}`,{
       method:'GET',
+      
+    
+    
   });
    const resUser: Aluno[] = await data.json()
    setData(resUser)
@@ -29,12 +36,13 @@ export default function AlunosPage(){
     
    getData()
 
-  },[data])
+  },[ ,data])
   let count = 0
   return(
     
     <div className="flex flex-col h-screen w-full space-y-5 css p-10">
       <h1 className="text-3xl font-bold text-white text-center">Alunos Cadastrados no TEA</h1>
+      
       <div className="w-full flex space-x-3 m-auto justify-center">
         <button className="bg-zinc-900 rounded-full p-4">
         <MyModal icon={<IoPersonAddOutline color="#fff000" size={30} />}>
@@ -49,9 +57,12 @@ export default function AlunosPage(){
          }}/>
        </div>
          <button className="bg-zinc-900 rounded-full p-4">
-           <CiFilter  color="#fff000" size={30} />
+           <MyModal icon={<CiFilter  color="#fff000" size={30} />}>
+              <Filter filter={filter} setFilter={setFilter}/>
+           </MyModal>
          </button>
       </div>
+      
       <div className="text-zinc-300 w-80 m-auto mt-3 ">
         <h1 className="text-center text-zinc-300">Arraste para direita para editar e esquerda para excluir</h1>
       </div>
@@ -71,7 +82,10 @@ export default function AlunosPage(){
             <h1 className="text-white m-auto">Status</h1>
           </div>
         </div>
-        {data ? <Alunos search={`${search}`} data={data!}/> : null}
+        {data ? <Alunos data={data!}/> : null}
+      </div>
+      <div className="">
+        <ChartAlunos/>
       </div>
     </div>
   )

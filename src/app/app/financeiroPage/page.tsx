@@ -3,35 +3,67 @@
 import { IoPersonAddOutline } from "react-icons/io5";
 import MyModal from "../_componnents/dialog";
 import { Add } from "../alunosPage/components/criar";
-import { FaSearch } from "react-icons/fa";
+import { FaMoneyBillAlt, FaSearch } from "react-icons/fa";
 import { CiFilter } from "react-icons/ci";
 import { useEffect, useState } from "react";
-import { Aluno } from "@/app/types";
+import { Aluno, CaixaType, Entrada } from "@/app/types";
 import { Financeiro } from "./componnents/financeiro";
 import { CardPlanos } from "./componnents/criarPlano";
 import { ChartBruto } from "../charts/ChartBruto";
+import { Caixa } from "./componnents/caixa";
 
 export default function FinanceiroPage(){
 
-  const [data,setData] = useState<Aluno[]>();
+  const [data,setData] = useState<Entrada[]>();
+  const [caixa,setCaixa] = useState<CaixaType[]>();
   const [search,setSearch] = useState<string>('');
   useEffect(()=>{
-    async function getData(){
-      const data = await fetch('http://localhost:8000/api/user',{
-      method:'GET',
-  });
-   const resUser = await data.json()
-   setData(resUser)
-    }
-    
-   getData()
 
-  },[data])
+
+    async function getData(){
+      const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/caixa/entradas`,{
+        method:'GET',
+
+        });
+        const resUser = await data.json()
+        setData(resUser)
+    };
+
+    async function getCaixa(){
+      
+      const getData = new Date();
+      const mounth = getData.getMonth() 
+      const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/caixas`,{
+      method:'GET',
+      headers:{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+
+      });
+      const resCaixa:CaixaType[] = await data.json()
+      setCaixa(resCaixa)
+    };
+
+
+    getData()
+    getCaixa()
+
+
+  },[])
   let count = 0
 
   
   return <div className="flex flex-col h-screen w-full space-y-5 css p-10">
-    <h1 className="text-3xl font-bold text-yellow-400 text-center">Financeiro TEA</h1>
+    <div className="flex items-center justify-center space-x-4">
+      <h1 className="text-4xl font-bold text-yellow-400 text-center">Financeiro</h1>
+      <FaMoneyBillAlt size={60} className="text-green-400"/>
+    </div>
+
+
+    <div className="bg-zinc-900 rounded-lg ">
+      {caixa ? <Caixa caixaA={caixa!}/> : <div className="h-20 flex items-center justify-center"> <h1 className="text-yellow-300">Carregando...</h1> </div>}
+    </div>
 
     <div className="flex flex-col   space-y-2 p-4 rounded-lg bg-zinc-900">
       <h1 className="text-center text-white font-bold text-2xl">Capital bruto</h1>
@@ -41,7 +73,7 @@ export default function FinanceiroPage(){
     <CardPlanos/>
 
     <div className="p-6 py-0 pt-8">
-      <h1 className="text-xl font-bold text-white">Entradas</h1>
+      <h1 className="text-4xl font-bold text-white">Entradas</h1>
     </div>
     <div className="w-full mt-5 h-max m-auto py-0  p-6 ">
       <div className="flex h-10 ">
@@ -60,5 +92,6 @@ export default function FinanceiroPage(){
       </div>
       {data ? <Financeiro search={`${search}`} data={data!}/> : null}
     </div>
+    
   </div>
 }

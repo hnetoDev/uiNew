@@ -11,6 +11,11 @@
 
 .b{
   scrollbar-width: none;
+  background: rgb(25,25,6);
+  background: -moz-linear-gradient(52deg, rgba(25,25,6,1) 12%, rgba(24,24,10,1) 20%, rgba(18,18,18,1) 80%, rgba(23,23,14,1) 85%, rgba(34,34,1,1) 100%);
+  background: -webkit-linear-gradient(52deg, rgba(25,25,6,1) 12%, rgba(24,24,10,1) 20%, rgba(18,18,18,1) 80%, rgba(23,23,14,1) 85%, rgba(34,34,1,1) 100%);
+  background: linear-gradient(52deg, rgba(25,25,6,1) 12%, rgba(24,24,10,1) 20%, rgba(18,18,18,1) 80%, rgba(23,23,14,1) 85%, rgba(34,34,1,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#191906",endColorstr="#222201",GradientType=1);
 }
 
 
@@ -87,6 +92,12 @@
 body{
   scrollbar-width: none
 }
+
+input:active{
+  border: 1px solid red
+}
+
+
  
 @layer base {
   * {

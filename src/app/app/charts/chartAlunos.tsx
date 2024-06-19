@@ -12,7 +12,7 @@ export function ChartAlunos(){
 
   useEffect(()=>{
     async function getData() {
-      const res = await fetch('http://localhost:8000/api/user')
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/false false`)
       const aluno:Aluno[] = await res.json();
 
       const alunosAtivos = aluno.filter(a => a.active === true)
@@ -37,14 +37,17 @@ export function ChartAlunos(){
             <ApexChart options={{
               dataLabels:{
                 enabled:true,
+                
+                
               },
               stroke:{
                 show:true,
                 colors:['transparent']
               },
               fill:{
-                colors:['#ffff00','#ffff00','#ff0000213']
+                
               },
+              colors:['#eeff00c5','#2600ff','#ff0000213'],
               chart:{
                 type:'bar'
               },

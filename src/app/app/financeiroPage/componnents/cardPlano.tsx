@@ -11,7 +11,7 @@ export function CardPlano(userCurrent:Plano){
 
   const payment = async(payment:boolean)=>{
 
-    const res = await fetch(`http://localhost:8000/api/user/updatePayment/${userCurrent.id}`,{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/updatePayment/${userCurrent.id}`,{
       method:'PUT',
       body:JSON.stringify({
         active:payment

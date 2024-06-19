@@ -6,11 +6,22 @@ import Swipeable from "../../_componnents/swipeable";
 import { CardExercicio } from "../../exerciciosPage/components/cardExercicio";
 
 
-export  function CriarTreino2({data}:{data?:Exercicio[]}){
+export default function CriarTreino(){
   
   const [treino,setTreino] = useState<Array<Exercicio[]>>([[],[],[],[],[],[],[]])
   const [qtdDays,setQtDays] = useState<number>(0)
+  const [data,setData] = useState<Exercicio[]>()
   
+  useEffect(()=>{
+    async function getData() {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/exercicios`)
+      const exercicios = await res.json()
+      setData(exercicios);
+
+    }
+    getData()
+  },[])
+
   const list = [
     {id:1,name:'A'},
     {id:2,name:'AB'},
@@ -71,18 +82,36 @@ export  function CriarTreino2({data}:{data?:Exercicio[]}){
         
         count++
         if(item.id > qtdDays) return
-        return <div key={item.id}  className={`${count % 2 === 0 || count === 0 ? 'border border-yellow-400 p-3 rounded-lg' : ' p-3 rounded-lg'} w-full rounded-lg mt-3 p-6 bg-bg `}>
+        return <div key={item.id}  className={`w-full rounded-lg p-6 bg-bg `}>
           <div className="flex w-full items-center mb-6 justify-between">
-            <h1 className=" text-2xl text-white">Dia {item.id}</h1>
+            <h1 className=" text-2xl font-bold text-white">Dia {item.id}</h1>
             <MyModal icon={
               <button className="p-3 flex max-sm:px-2 bg-green-400 font-bold  rounded-lg items-center justify-center ">Adicionar exercício</button>
             }> 
               <div>
                 {data? data.map(u =>{
-                 treinoDia.push(u)
-                 console.log(treinoDia)
+                 let contadorPrev = 0;
                   return <div  key={`${u.id}`} className={`${count % 2 === 0 || count === 0 ? 'bg-zinc-900 p-3 rounded-lg' : 'bg-bg p-3 rounded-lg'} w-full `}>
-                             <button >
+                             <button onClick={()=>{
+                              
+                             
+                               setTreino(prev =>{
+                               
+                                const dataa = prev.map(d =>{
+                                  if(contadorPrev === item.id - 1){
+                                    d.push(u)
+                                  }
+                                  contadorPrev++
+                                  return [...prev]
+                                })
+
+                                
+
+                                return dataa[item.id]                             
+
+                               })
+                               console.log(treino)
+                             }} >
                                <CardExercicio editable={false} exercicioCurrent={u}/>
                              </button>
                         </div>
@@ -92,11 +121,11 @@ export  function CriarTreino2({data}:{data?:Exercicio[]}){
           </div>
 
           <div>
-           {treino[0].map((t)=>{
+           {treino[item.id - 1].map((t)=>{
             
             integer++
-            return <div key={`${integer}`}>
-              <h1 className="text-white">{t.name}</h1>
+            return <div className="mt-4" key={`${integer}`}>
+              <CardExercicio editable={false} exercicioCurrent={t}/>
             </div>
            })}
           </div>

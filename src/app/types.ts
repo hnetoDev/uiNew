@@ -4,17 +4,20 @@ export type Aluno = {
   cpf: String
   email:String
   password:String
+  genero:String
   tel:String
   emerg:String   
   active:boolean
   mensalidade:String
   plano:String
 }
-export type Treino = {
-  title: String
-  img:String
-  desc:String
+
+
+export type Entrada = {
   id:String
+  name:String
+  method:String
+  date:String
 }
 
 export type Plano = {
@@ -25,8 +28,15 @@ export type Plano = {
   qtd:Number
 }
 
+export type CaixaType = {
+  name: Number
+  aplicativo:Number
+  pix: Number
+  dinheiro:Number
+}
+
 export type Exercicio = {
-  title:String,
+  name:String,
   desc:String,
   img:String,
   id:String
@@ -35,4 +45,15 @@ export type Exercicio = {
 export type DrawerProps = {
   setOpen:React.Dispatch<React.SetStateAction<boolean>>,
   isOpen:boolean
+}
+
+export type FilterType = {
+  status?:String
+  date?:String
+}
+
+export type Treino = {
+  id:String
+  name:String
+  exercicioId?:String
 }

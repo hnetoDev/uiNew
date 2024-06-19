@@ -1,6 +1,6 @@
 'use client'
 
-import { Aluno } from "@/app/types"
+import {Entrada } from "@/app/types"
 import Swipeable from "../../_componnents/swipeable"
 import { useState } from "react"
 import { FaBackward, FaCheckCircle, FaForward } from "react-icons/fa"
@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation"
 import { toast } from "@/components/ui/use-toast"
 import { CardEntrada } from "../../financeiroPage/componnents/cardEntrada"
 import { Edite } from "../../alunosPage/components/edit"
-export function Financeiro({data,search}:{data:Aluno[],search:string}){
+export function Financeiro({data,search}:{data:Entrada[],search:string}){
   const routes = useRouter()
 
   let count = 1
@@ -28,7 +28,7 @@ export function Financeiro({data,search}:{data:Aluno[],search:string}){
   {search === '' ? user.map(u =>{
   count++;
   return <div key={`${u.id}`} className={`${count % 2 === 0 || count === 0 ? 'bg-zinc-900 p-3 rounded-lg' : 'bg-bg p-3 rounded-lg'} w-full h-max`}>
-  <Swipeable aluno={u} childrenExit={
+  <Swipeable  childrenExit={
     <div>
         <h1 className="text-xl font-medium text-white">
                     Exclusão
@@ -40,7 +40,7 @@ export function Financeiro({data,search}:{data:Aluno[],search:string}){
                     <button
                       className="rounded-lg bg-green-400 py-2 px-3 font-bold"
                       onClick={async()=>{
-                        const resp = await fetch(`http://localhost:8000/api/user/delete/${u.id}`,{
+                        const resp = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/delete/${u.id}`,{
                           method:"DELETE"
                         })
                         toast({
@@ -59,12 +59,12 @@ export function Financeiro({data,search}:{data:Aluno[],search:string}){
                     
                   </div>
     </div>
-  } childrenMyModal={<Edite user={u}/>} > <CardEntrada {...u}/> </Swipeable>
+  } > <CardEntrada {...u}/> </Swipeable>
 </div>
   }) : searched!.map(u =>{
     count++;
     return <div key={`${u.id}`} className={`${count % 2 === 0 || count === 0 ? 'bg-zinc-900 p-3 rounded-lg' : 'bg-bg p-3 rounded-lg'} w-full `}>
-    <Swipeable aluno={u} childrenExit={
+    <Swipeable childrenExit={
       <div>
           <h1 className="text-xl font-medium text-white">
                       Exclusão
@@ -76,7 +76,7 @@ export function Financeiro({data,search}:{data:Aluno[],search:string}){
                       <button
                         className="rounded-lg bg-green-400 py-2 px-3 font-bold"
                         onClick={async()=>{
-                          const resp = await fetch(`http://localhost:8000/api/user/delete/${u.id}`,{
+                          const resp = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/delete/${u.id}`,{
                             method:"DELETE"
                           })
                           routes.push('/app/alunosPage')
@@ -88,7 +88,7 @@ export function Financeiro({data,search}:{data:Aluno[],search:string}){
                       
                     </div>
       </div>
-    } childrenMyModal={<Edite user={u}/>} > <CardEntrada {...u}/> </Swipeable>
+    } >  <CardEntrada {...u} /> </Swipeable>
   </div>
     })  } 
   <div className="flex">

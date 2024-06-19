@@ -16,7 +16,7 @@ export function CardPlanos(){
 
   
   const postData = form.handleSubmit(async (data)=>{
-    const res = await fetch('http://localhost:8000/api/user/planos/create',{
+    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/user/planos/create`,{
       method:'POST',
       headers: {
         'Accept': 'application/json',
@@ -24,8 +24,8 @@ export function CardPlanos(){
       },
       body:JSON.stringify({
         name:data.name,
-        value:data.value,
-        duration:data.value
+        value:data.value as number,
+        duration:data.duration 
       })
     })
 
@@ -41,7 +41,7 @@ export function CardPlanos(){
 
   useEffect(()=>{
     async function getData(){
-      const res = await fetch("http://localhost:8000/api/user/planos",{
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/planos`,{
         method:"GET"
       })
 
@@ -64,7 +64,7 @@ export function CardPlanos(){
   return <div className="w-full border border-yellow-400 bg-zinc-900 rounded-lg ">
 
     <div className="flex items-center p-6 py-3 justify-between">
-      <h1 className="text-xl font-bold text-white">Planos</h1>
+      <h1 className="text-4xl font-bold text-white">Planos</h1>
       <button className="bg-bg rounded-full p-3">
         <MyModal small={true} icon={<IoAdd color="#fff000" size={30} />}>
           <h1 className="text-2xl font-bold text-yellow-400">Criar Plano</h1>
