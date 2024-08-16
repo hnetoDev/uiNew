@@ -17,7 +17,7 @@ export function Alunos({data}:{data:Aluno[]}){
 
   let count = 1
   const [page,setPage] = useState(count)
-  let pagesTotal = Math.floor(data.length / 10) + Math.round(data.length % 10)
+  let pagesTotal = Math.round(data.length / 10)
   if(data.length < 10){
     pagesTotal = 1
   }
@@ -26,46 +26,11 @@ export function Alunos({data}:{data:Aluno[]}){
   const user = data.slice(nSlice[0],nSlice[1])
   
   console.log(user)
-  return <div className="w-full css2 max-sm:overflow-x-auto overflow-x-hidden ">
+  return <div className="w-full css2 max-sm:overflow-x-auto  ">
   {user.map(u =>{
   count++;
-  return <div key={`${u.id}`} className={`${count % 2 === 0 || count === 0 ? 'bg-zinc-900 p-3 rounded-lg' : 'bg-bg p-3 rounded-lg'} w-full `}>
-  <Swipeable  childrenExit={
-    <div>
-        <h1 className="text-xl font-medium text-white">
-                    Exclusão
-                  </h1>
-                  <p className="mt-2 text-sm text-white/50">
-                    Confirmar a exclusão da conta do aluno: {u.name}
-                  </p>
-                  <div className="mt-4 space-x-3">
-                    <button
-                      className="rounded-lg bg-green-400 py-2 px-3 font-bold"
-                      onClick={async()=>{
-                        const resp = await fetch(`${env.NEXT_PUBLIC_API_URL}/api/user/delete/${u.id}`,{
-                          method:"DELETE",
-                          headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        })
-                        toast({
-                          className:"bg-bg border border-yellow-300 text-red-500 ",
-                          title:'Aluno excluido com sucesso',
-                          duration:1000,
-                          action: <FaCheckCircle size={25}/>
-                      })
-                        
-                        routes.push('/app/alunosPage')
-                        
-                      }}
-                    >
-                      Confirmar
-                    </button>
-                    
-                  </div>
-    </div>
-  } childrenMyModal={<Edite user={u}/>} > <CardAluno {...u}/> </Swipeable>
+  return <div key={`${u.id}`} className={`${count % 2 === 0 || count === 0 ? 'bg-zinc-900 p-3 rounded-lg' : 'bg-bg p-3 rounded-lg'} w-full max-sm:w-max `}>
+  <CardAluno {...u}/> 
 </div>
   })  } 
   <div className="flex">
@@ -91,7 +56,7 @@ export function Alunos({data}:{data:Aluno[]}){
             </div>
           </div>
           <div className="flex p-4 items-center">
-            <h1 className="text-white">1 de {pagesTotal} pags</h1>
+            <h1 className="text-white"> de {pagesTotal} pags</h1>
           </div>
         </div>
 </div> 

@@ -17,18 +17,24 @@ import { ChartAlunos } from "../charts/chartAlunos";
 
 
 export default function AlunosPage(){
-  const [filter,setFilter] = useState<string>()
+  const [filter,setFilter] = useState<boolean | undefined>()
   const [data,setData] = useState<Aluno[]>();
   const [search,setSearch] = useState<string>('');
+
   useEffect(()=>{
     console.log(process.env.NEXT_PUBLIC_API_URL)
     console.log(search)
+    console.log(filter)
     async function getData(){
-      const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/${search ? search : false} ${filter ? filter : false}`,{
-      method:'GET',
-      
-    
-    
+      const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/search`,{
+      method:'POST',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({
+        active:filter,
+        search:search
+      })
   });
    const resUser: Aluno[] = await data.json()
    setData(resUser)
@@ -49,36 +55,33 @@ export default function AlunosPage(){
           <Add data={data} setData={setData}/>
         </MyModal>
        </button>
-       <div className="search focus-within:space-x-3 bg-zinc-900  hover:group-last:w-14 hover:rounded-md hover:space-x-3 flex items-center justify-center p-4">
+       <div className={`${search ? 'border-2 border-green-400' : null} outline-none  search focus-within:space-x-3 bg-zinc-900 focus-within:rounded-md  hover:group-last:w-14 hover:rounded-md hover:space-x-3 flex items-center justify-center p-4`}>
          <FaSearch className=" font-bold" size={30} color="#fff000"/>
          <input className="input " type="text" onChange={(v)=>{
           setSearch(v.currentTarget.value.toLowerCase());
           console.log(search)
          }}/>
        </div>
-         <button className="bg-zinc-900 rounded-full p-4">
+         <button className={` ${filter !== undefined ? 'border-2 border-green-400' : null}  bg-zinc-900 rounded-full p-4`}>
            <MyModal icon={<CiFilter  color="#fff000" size={30} />}>
               <Filter filter={filter} setFilter={setFilter}/>
            </MyModal>
          </button>
       </div>
       
-      <div className="text-zinc-300 w-80 m-auto mt-3 ">
-        <h1 className="text-center text-zinc-300">Arraste para direita para editar e esquerda para excluir</h1>
-      </div>
-
-      <div className="w-full h-max m-auto  p-6 ">
-        <div className="flex h-10 ">
+     
+      <div className="w-full h-max m-auto p-6 ">
+        <div className="flex h-10 max-sm:invisible  ">
           <div className="w-16 flex">
             <h1 className="text-white m-auto">Foto</h1>
           </div>
           <div className="w-52 flex">
-            <h1 className="text-white m-auto max-sm:ml-16">Nome</h1>
+            <h1 className="text-white m-auto ">Nome</h1>
           </div>
-          <div className=" w-72 max-sm:invisible flex">
+          <div className=" w-72  flex">
             <h1 className="text-white m-auto ml-40">Email</h1>
           </div>
-          <div className="w-28 ml-3 max-sm:invisible flex">
+          <div className="w-28 ml-3 flex">
             <h1 className="text-white m-auto">Status</h1>
           </div>
         </div>

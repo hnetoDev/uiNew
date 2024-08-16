@@ -38,7 +38,7 @@ export default function MyModal({children,icon,small}:Readonly<{children:ReactNo
                 leaveTo="opacity-0 scale-95"
               >
                 <DialogPanel className={`${small ? 'w-1/3' : 'w-2/3'} max-xl:w-3/5 max-sm:w-2/3 max-sm:h-2/3 rounded-lg  bg-zinc-900 p-6`}>
-                  <div  onClick={close} className=' fixed right-4 flex css2 cursor-pointer  justify-end' ><IoCloseCircle size={30} className='text-red-500  w-max text-right  rounded-full'/></div>
+                  <div  onClick={close} className=' fixed right-4 flex  cursor-pointer  justify-end' ><IoCloseCircle size={30} className='text-red-500  w-max text-right  rounded-full'/></div>
                  {children}
                 </DialogPanel>
               </TransitionChild>

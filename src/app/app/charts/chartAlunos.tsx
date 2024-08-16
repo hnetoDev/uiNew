@@ -2,7 +2,7 @@
 
 import { Aluno } from "@/app/types";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 
@@ -12,7 +12,7 @@ export function ChartAlunos(){
 
   useEffect(()=>{
     async function getData() {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/false false`)
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`)
       const aluno:Aluno[] = await res.json();
 
       const alunosAtivos = aluno.filter(a => a.active === true)
@@ -49,7 +49,14 @@ export function ChartAlunos(){
               },
               colors:['#eeff00c5','#2600ff','#ff0000213'],
               chart:{
-                type:'bar'
+                type:'bar',
+                events:{
+                   dataPointSelection: function(event, chartContext, config) {
+                    console.log(config.w.config.labels[config.dataPointIndex]);
+                    
+                   }
+                
+                }
               },
               xaxis:{
                 categories:['Ativos','Inativos','Atrasados'],

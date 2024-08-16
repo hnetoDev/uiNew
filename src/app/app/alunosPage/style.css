@@ -19,9 +19,7 @@
 .input:focus{
   width: 14.5rem;
 }
-.search:focus-within {
-  border-radius: 8%;  
-}
+
 .margL{
   margin-left: 100rem;
 }

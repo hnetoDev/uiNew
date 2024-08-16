@@ -93,8 +93,26 @@ body{
   scrollbar-width: none
 }
 
-input:active{
-  border: 1px solid red
+button:active{
+  transform: translateY(4px);
+  
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(0.2) brightness(100%) sepia(100%) saturate(10000%) hue-rotate(10deg);
+}
+
+
+/* Cor de fundo do autocomplete */
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #121212 inset;
+  border-radius: 0;
+}
+
+/* Cor do texto do autocomplete */
+input:-webkit-autofill {
+  -webkit-text-fill-color: rgb(197, 197, 197) !important;
 }
 
 

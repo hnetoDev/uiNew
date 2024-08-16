@@ -10,13 +10,16 @@ export function Exercicios({data}:{data:Exercicio[]}){
 
   let count = 1
   const [page,setPage] = useState(count)
-  const pagesTotal = Math.floor(data.length / 10) + Math.round(data.length % 10)
+  let pagesTotal = Math.round(data.length / 10)
+  if(data.length < 10){
+    pagesTotal = 1
+  }
   const [nSlice, setSlice] = useState([0,10])
   const treino = data.slice(nSlice[0],nSlice[1])
-  return <div className="w-full css2 max-sm:overflow-x-auto overflow-x-hidden ">
+  return <div className="w-full css2 max-sm:overflow-x-auto ">
   {treino.map(u =>{
   count++;
-  return <div key={`${u.id}`} className={`${count % 2 === 0 || count === 0 ? 'bg-zinc-900 p-3 rounded-lg' : 'bg-bg p-3 rounded-lg'} w-full `}>
+  return <div key={`${u.id}`} className={`${count % 2 === 0 || count === 0 ? 'bg-zinc-900 p-3 rounded-lg' : 'bg-bg p-3 rounded-lg'} max-sm:w-max w-full`}>
   <Swipeable> <CardExercicio editable={false} exercicioCurrent={u}/> </Swipeable>
 </div>
   })}
@@ -43,7 +46,7 @@ export function Exercicios({data}:{data:Exercicio[]}){
             </div>
           </div>
           <div className="flex p-4 items-center">
-            <h1 className="text-white">1 de 12 pags</h1>
+            <h1 className="text-white"> de {pagesTotal} pags</h1>
           </div>
         </div>
 </div>

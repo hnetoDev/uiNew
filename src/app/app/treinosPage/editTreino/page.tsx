@@ -10,10 +10,11 @@ import { toast } from "@/components/ui/use-toast";
 import { FaCheckCircle } from "react-icons/fa";
 
 
-export default function CriarTreino(){
+export default function EditeTreino(){
   
   const [treino,setTreino] = useState<Array<Exercicio[]>>([])
   const [qtdDays,setQtDays] = useState<number>(0)
+  const [treinoPrev,setTreinoPrev] = useState<string[][]>()
   const [data,setData] = useState<Exercicio[]>()
   const form = useForm();
   

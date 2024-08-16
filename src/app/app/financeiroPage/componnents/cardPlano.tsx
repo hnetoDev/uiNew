@@ -6,30 +6,10 @@ import { Edite } from "../../alunosPage/components/edit"
 import { useRouter } from "next/navigation"
 import { toast } from "@/components/ui/use-toast"
 import { Plano } from "@/app/types"
+import { IoTrashOutline } from "react-icons/io5"
 
 export function CardPlano(userCurrent:Plano){
 
-  const payment = async(payment:boolean)=>{
-
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/updatePayment/${userCurrent.id}`,{
-      method:'PUT',
-      body:JSON.stringify({
-        active:payment
-      }),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    },
-      mode:'cors'
-    })
-    toast({
-      className:"bg-bg border border-yellow-300 text-green-400 ",
-      title:'Pagamento aprovado com sucesso',
-      action: <FaCheckCircle size={25}/>,
-      duration:1000
-  })
-  }
-  const route = useRouter()
 
   return <div className="flex w-full items-center justify-between">
 
@@ -53,6 +33,41 @@ export function CardPlano(userCurrent:Plano){
       
 
     </div>
+    <div className="bg-red-500 p-3 rounded-lg">
+        <MyModal icon={<div className=""><IoTrashOutline className=" text-black text-center " size={24} /></div>}>
+          <div className="">
+            <h1 className="text-xl font-medium text-red-500">
+              Exclusão
+            </h1>
+            <p className="mt-2 text-sm text-white/50">
+              Confirmar a exclusão da conta do plano: {userCurrent.name}
+            </p>
+            <div className="mt-4 space-x-3">
+              <button
+                className="rounded-lg bg-red-500 py-2 px-3 font-bold"
+                onClick={async () => {
+                  const resp = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/plano/${userCurrent.id}`, {
+                    method: "DELETE",
+                  
+                  })
+                  
+                  toast({
+                    className: "bg-bg border border-yellow-300 text-red-500 ",
+                    title: 'Plano excluido',
+                    duration: 1000,
+                    action: <FaCheckCircle size={25} />
+                  })
+
+
+                }}
+              >
+                Excluir
+              </button>
+
+            </div>
+          </div>
+        </MyModal>
+      </div>
 
 
   </div>

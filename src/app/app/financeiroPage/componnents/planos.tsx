@@ -17,7 +17,7 @@ export function Planos({data}:{data:Plano[]}){
 
   let count = 1
   const [page,setPage] = useState(count)
-  let pagesTotal = Math.floor(data.length / 10) + Math.round(data.length % 10)
+  let pagesTotal = Math.round(data.length / 10)
   if(data.length < 10){
     pagesTotal = 1
   }
@@ -86,7 +86,7 @@ export function Planos({data}:{data:Plano[]}){
             </div>
           </div>
           <div className="flex p-4 items-center">
-            <h1 className="text-white">1 de {pagesTotal} pags</h1>
+            <h1 className="text-white"> de {pagesTotal} pags</h1>
           </div>
         </div>
 </div> 

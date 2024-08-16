@@ -9,36 +9,32 @@ import '../../alunosPage/style.css'
 import { CgGym } from "react-icons/cg";
 import Link from "next/link";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { Exercicio } from "@/app/types";
+import CriarTreino from "./criarTreino";
 
-export function CaixaPesquisaTreino(){
+export function CaixaPesquisaTreino({setSearch}:{setSearch:Dispatch<SetStateAction<string | undefined>>}){
   
-  const [data,setData] = useState<Exercicio[]>()
-  useEffect(()=>{
-    async function getData(){
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/exercicios`)
-      const exercicios:Exercicio[] = await res.json()
-      setData(exercicios)
-    }
-    getData()
-  },[])
 
   return <div className="w-full flex space-x-3 m-auto justify-center">
   <button className="bg-zinc-900 rounded-full p-4">
     
-  <Link href='/app/treinosPage/criarTreino'><IoAddOutline color="#fff000" size={30}/></Link>
+  
+    <MyModal icon={<IoAddOutline color="#fff000" size={30} />}>
+      <CriarTreino/>
+    </MyModal>
+  
     
       
    
   </button>
-  <div className="search focus-within:space-x-3 bg-zinc-900  hover:group-last:w-14 hover:rounded-md hover:space-x-3 flex items-center justify-center p-4">
+  <div className="search focus-within:space-x-3 focus-within:rounded-md bg-zinc-900  hover:group-last:w-14 hover:rounded-md hover:space-x-3 flex items-center justify-center p-4">
     <FaSearch className=" font-bold" size={30} color="#fff000"/>
-    <input className="input " type="text"/>
+    <input className="input" type="text"  onChange={(v)=>{
+      setSearch(v.currentTarget.value)
+    }}/>
   </div>
-  <button className="bg-zinc-900 rounded-full p-4">
-    <CiFilter  color="#fff000" size={30} />
-  </button>
+  
   
 </div>
 }

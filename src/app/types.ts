@@ -2,58 +2,92 @@ export type Aluno = {
   id: String
   name: String
   cpf: String
-  email:String
-  password:String
-  genero:String
-  tel:String
-  emerg:String   
-  active:boolean
-  mensalidade:String
-  plano:String
+  email: String
+  password: String
+  genero: String
+  tel: String
+  emerg: String
+  active: boolean
+  mensalidade: String
+  planoId: String
+  treinoId: string,
+  img: string
 }
+
 
 
 export type Entrada = {
-  id:String
-  name:String
-  method:String
-  date:String
+  dinheiro: number,
+  pix: number,
+  aplicativo: number,
+  entradas: {
+    id: string,
+    name: string,
+    method: string,
+    date: string,
+    value: string,
+    month: number,
+    userId: string,
+    planoId: string
+  }[]
+}
+
+export type EntradaSimples = {
+  id: string,
+  name: string,
+  method: string,
+  date: string,
+  value: string,
+  month: number,
+  userId: string,
+  planoId: string
 }
 
 export type Plano = {
-  id:String
+  id: String
   name: String
-  value:String
-  duration:String
-  qtd:Number
+  value: String
+  duration: String
+  qtd: Number
 }
 
-export type CaixaType = {
-  name: Number
-  aplicativo:Number
-  pix: Number
-  dinheiro:Number
-}
+
 
 export type Exercicio = {
-  name:String,
-  desc:String,
-  img:String,
-  id:String
+  name: String,
+  desc: String,
+  id: String
+  img: String
+  category: string
 }
 
 export type DrawerProps = {
-  setOpen:React.Dispatch<React.SetStateAction<boolean>>,
-  isOpen:boolean
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>,
+  isOpen: boolean
 }
 
 export type FilterType = {
-  status?:String
-  date?:String
+  status?: String
+  date?: String
 }
 
 export type Treino = {
-  id:String
-  name:String
-  exercicioId?:String
+  id: String
+  name: String
+  exercicios: Object[][]
 }
+
+export const TypeOfExercicio = [
+  "BICEPS",
+  "PEITO",
+  "COSTAS",
+  "TRICEPS",
+  "OMBRO",
+  "ANTEBRACO",
+  "ABDOMEN",
+  "GLUTEO",
+  "POSTERIOR",
+  "QUADRICEPS",
+  "PANTURRILHA",
+  "TRAPEZIO"
+]

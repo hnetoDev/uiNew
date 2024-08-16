@@ -10,12 +10,18 @@ import { Treino } from "@/app/types";
 
 export default function TreinoPage(){
   const [treinos,setTreinos] = useState<Treino[]>()
-
+  const [search,setSearch] = useState<string|undefined>()
   useEffect(()=>{
 
     async function getData() {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/treinos`,{
-        method:'GET'
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/treino/search`,{
+        method:'POST',
+        headers:{
+          "Content-Type": "application/json"
+        },
+        body:JSON.stringify({
+          search:search
+        })
       })
       const treinos:Treino[] = await res.json()
       setTreinos(treinos)
@@ -28,7 +34,7 @@ export default function TreinoPage(){
 
   return <div className="flex flex-col h-screen w-full space-y-5 css p-10">
     <h1 className="text-3xl font-bold text-white text-center">Treinos Cadastrados no TEA</h1>
-    <CaixaPesquisaTreino/>
+    <CaixaPesquisaTreino setSearch={setSearch}/>
     <div className="text-zinc-300 mt-3 space-y-2 ">
       <Link href={{pathname:'/app/exerciciosPage'}} className="flex cursor-pointer  bg-zinc-900 w-max p-4 space-x-2 rounded-lg m-auto">
         <h1 className=" text-yellow-400 ">Ver exercícios</h1>

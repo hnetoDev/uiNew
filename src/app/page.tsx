@@ -1,12 +1,14 @@
 'use client'
 
-import { signOut } from "next-auth/react";
+import { getSession, signOut } from "next-auth/react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 export default function Home() {
   
   const routes = useRouter()
+  redirect('/app');
+
   
   const handleLogout = async()=>{
     await signOut()

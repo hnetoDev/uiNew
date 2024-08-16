@@ -16,16 +16,16 @@ export function CardPlanos(){
 
   
   const postData = form.handleSubmit(async (data)=>{
-    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/user/planos/create`,{
+    console.log("aq")
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/plano`,{
       method:'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+      headers:{
+        "Content-Type": "application/json",
       },
       body:JSON.stringify({
         name:data.name,
-        value:data.value as number,
-        duration:data.duration 
+        value:data.value,
+        duration:data.duration
       })
     })
 
@@ -41,7 +41,7 @@ export function CardPlanos(){
 
   useEffect(()=>{
     async function getData(){
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/planos`,{
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/plano`,{
         method:"GET"
       })
 
