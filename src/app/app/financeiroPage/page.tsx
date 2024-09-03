@@ -101,7 +101,7 @@ export default function FinanceiroPage() {
     </div>
 
 
-    <div className="bg-zinc-900 rounded-lg ">
+    <div className=" bg-zinc-900 rounded-lg ">
       {data ? <Caixa caixa={data!} /> : <div className="h-20 flex items-center justify-center"> <h1 className="text-yellow-300">Carregando...</h1> </div>}
     </div>
 

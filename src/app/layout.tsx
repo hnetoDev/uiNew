@@ -1,12 +1,12 @@
 /* eslint-disable @next/next/no-sync-scripts */
 import type { Metadata } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono, Open_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
 
 
-const myFont = JetBrains_Mono({
+const myFont = Open_Sans({
   weight:['300'],
   subsets:['latin']
 })
@@ -23,12 +23,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html className="dark" lang="en">
       <head>
         <meta name="color-scheme" content="light dark"/>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className={`b`}>
+      <body className={``}>
         <div className={myFont.className}>
           {children}
           <Toaster/>

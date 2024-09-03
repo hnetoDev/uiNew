@@ -23,7 +23,7 @@ export default function AppPage(){
 
 
         <div className="flex flex-col  space-y-2 p-4 rounded-lg bg-zinc-900">
-          <h1 className="text-center text-white font-bold text-2xl">Alunos Cadastrados</h1>
+          <h1 className="text-center text--primary font-bold text-2xl">Alunos Cadastrados</h1>
           <ChartAlunos/>
         </div>
 
