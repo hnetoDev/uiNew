@@ -29,7 +29,8 @@ export type Entrada = {
     month: number,
     userId: string,
     planoId: string
-  }[]
+  }[],
+  pages:number
 }
 
 export type EntradaSimples = {
@@ -74,7 +75,7 @@ export type FilterType = {
 export type Treino = {
   id: String
   name: String
-  exercicios: Object[][]
+  exercicios: JSON
 }
 
 export const TypeOfExercicio = [

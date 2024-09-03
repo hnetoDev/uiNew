@@ -33,7 +33,7 @@ export const CardTreino = (treinoCurrent: Treino): JSX.Element => {
 
     <div className="flex max-sm:w-0  space-x-5">
       <div className="bg-yellow-400 p-3 rounded-lg">
-        <MyModal icon={<MdOutlineEdit className=" text-black" size={24} />}>
+        <MyModal bgTransparent icon={<MdOutlineEdit className=" text-black" size={24} />}>
           <EditeTreino {...treinoCurrent}/>
         </MyModal>
       </div>

@@ -20,7 +20,7 @@ export function CaixaPesquisaTreino({setSearch}:{setSearch:Dispatch<SetStateActi
   <button className="bg-zinc-900 rounded-full p-4">
     
   
-    <MyModal icon={<IoAddOutline color="#fff000" size={30} />}>
+    <MyModal bgTransparent icon={<IoAddOutline color="#fff000" size={30} />}>
       <CriarTreino/>
     </MyModal>
   

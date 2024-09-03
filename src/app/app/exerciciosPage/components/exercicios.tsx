@@ -32,7 +32,7 @@ export function Exercicios({data}:{data:Exercicio[]}){
                 let n = page - 1
                 setPage(n)
                 setSlice(s)
-              }} color="white"/>
+              }} className=" active:text-yellow-400 text-white" />
             </div>
             <div className="text-white">{page}</div>
             <div>
@@ -42,7 +42,7 @@ export function Exercicios({data}:{data:Exercicio[]}){
                 let n = page + 1
                 setPage(n)
                 setSlice(s)
-              }} color="white"/>
+              }} className=" active:text-yellow-400 text-white" />
             </div>
           </div>
           <div className="flex p-4 items-center">

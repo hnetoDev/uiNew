@@ -52,11 +52,12 @@ export function CriarExercicio(){
 })
 
   return <div className=" w-full  css  space-y-3 ">
-    <h1 className="text-white text-2xl text-center">Adicione um novo Exercício</h1>
+    <h1 className="text-white text-2xl fontC text-center">Adicione um novo Exercício</h1>
     <div className="mx-auto rounded-lg space-y-3   p-6 ">
      <div className="flex max-sm:flex-col"> 
-      <div className="w-2/5 max-sm:w-full first-letter:h-full ">
-        <div className={`w-36 h-36 m-auto ${file ? 'border-2 border-yellow-400' : `bg-yellow-400`} rounded-full flex justify-center items-center`}>
+      <div className="w-2/5 space-y-4 max-sm:w-full first-letter:h-full ">
+      <h1 className="text-center text-zinc-300 fontC font-bold">Adicione uma IMAGEM ou GIF</h1>
+        <div className={`w-36 h-36 m-auto ${file ? 'border-2 border-yellow-400' : `bg-yellow-400`} rounded-2xl flex justify-center items-center`}>
           <input type="file" onChange={(v)=>{
             setFile(v.currentTarget.files![0] as File)
           }} className=" opacity-0 hover:cursor-pointer  z-20 absolute" />
@@ -66,19 +67,24 @@ export function CriarExercicio(){
             <LuImagePlus className="m-auto text-yellow-400 font-bold" size={30}  />
           </button>
         </div>
+        <div>
+          <h1 className=" text-zinc-300 fontC font-bold">Link de video explicativo:</h1>
+          <input className="px-3 py-3 w-full text-zinc-300 bg-bg rounded-lg " type="text" {...form.register('name')} required  />
+        </div>
+      
         
       </div>
       <div className="ml-4 w-3/5 max-sm:w-full max-sm:ml-0 flex flex-col space-y-4">
         <div className="flex flex-col justify-stretch" >
-            <h1 className="text-zinc-300 font-bold">Nome do exercício:</h1>
+            <h1 className="text-zinc-300 fontC font-bold">Nome do exercício:</h1>
             <input className="px-3 py-3 text-zinc-300 bg-bg rounded-lg " type="text" {...form.register('name')} required  />
           </div>
         <div className="flex flex-col justify-stretch" >
-            <h1 className="text-zinc-300 font-bold">Descrição:</h1>
+            <h1 className="text-zinc-300 fontC font-bold">Descrição:</h1>
             <textarea className="bg-bg p-3 text-white" {...form.register('desc')}/>
         </div>
         <div>
-        <h1 className="text-zinc-300 font-bold">Categoria</h1>
+        <h1 className="text-zinc-300 fontC font-bold">Categoria</h1>
           <select className="bg-bg p-3 text-zinc-300 rounded-lg"  {...form.register('category')}>
             {TypeOfExercicio.map( t => {
               return <option key={`${t}`} value={`${t}`}>{t}</option>

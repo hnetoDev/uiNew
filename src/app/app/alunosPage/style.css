@@ -6,10 +6,12 @@
 .input{
   background-color: transparent;
   width: 0;
-  color: #fff;
+  color: #ffffff;
   font-weight: bold;
   outline: none;
   transition: 0.6s ease-in-out;
+  outline-width: 0;
+  border: 0px ;
 }
 
 .search:hover .input{

@@ -12,7 +12,10 @@ export function Treinos({data}:{data:Treino[]}){
 
   let count = 1
   const [page,setPage] = useState(count)
-  const pagesTotal = Math.round(data.length / 10)
+  let pagesTotal = Math.round(data.length / 10)
+  if(data.length < 10){
+    pagesTotal = 1;
+  }
   const [nSlice, setSlice] = useState([0,10])
   const treino = data.slice(nSlice[0],nSlice[1])
   return <div className="w-full css2 max-sm:overflow-x-auto overflow-x-hidden ">
@@ -31,7 +34,7 @@ export function Treinos({data}:{data:Treino[]}){
                 let n = page - 1
                 setPage(n)
                 setSlice(s)
-              }} color="white"/>
+              }} className=" active:text-yellow-400 text-white" />
             </div>
             <div className="text-white">{page}</div>
             <div>
@@ -41,7 +44,7 @@ export function Treinos({data}:{data:Treino[]}){
                 let n = page + 1
                 setPage(n)
                 setSlice(s)
-              }} color="white"/>
+              }} className=" active:text-yellow-400 text-white" />
             </div>
           </div>
           <div className="flex p-4 items-center">

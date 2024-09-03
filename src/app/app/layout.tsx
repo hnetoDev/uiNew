@@ -7,14 +7,14 @@ import React from "react";
 import './global.css'
 import { IoExitOutline, IoHomeOutline } from "react-icons/io5";
 import { FaBars } from "react-icons/fa";
-import { Poppins } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import { CgGym } from "react-icons/cg";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
 import { IoPersonOutline } from "react-icons/io5";
 import { DrawerCustom } from "./_componnents/Drawer";
 import { signOut } from "next-auth/react";
 
-const myFont = Poppins({
+const myFont = JetBrains_Mono({
   weight:['300'],
   subsets:['latin']
 })

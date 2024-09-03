@@ -22,7 +22,7 @@ export function Edite({ user }: { user: Aluno }) {
   const [planos, setPlanos] = useState<Plano[]>();
   const [treinos, setTreinos] = useState<Treino[]>()
   const [file, setFile] = useState<File | null>()
-  const [cpf,setCpf] = useState<boolean>(true)
+  const [cpf, setCpf] = useState<boolean>(true)
   useEffect(() => {
     async function getData() {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/plano`, {
@@ -32,7 +32,15 @@ export function Edite({ user }: { user: Aluno }) {
         },
       })
       const planos: Plano[] = await res.json();
-      setPlanos(planos);
+      setPlanos(prev => {
+        if (planos.length > 1) {
+          const planoAtual = planos?.filter(d => d.id === user.planoId)
+          const others = planos?.filter(d => d.id !== user.planoId)
+          if (planoAtual && others) {
+            return [...planoAtual, ...others]
+          }
+        }
+      });
     }
 
     async function getData2() {
@@ -40,13 +48,22 @@ export function Edite({ user }: { user: Aluno }) {
         method: 'GET'
       })
       const treinos: Treino[] = await res.json()
-      setTreinos(treinos)
+      setTreinos(prev => {
+        
+          const treinoAtual = treinos?.filter(d => d.id === user.planoId)
+          const others = treinos?.filter(d => d.id !== user.planoId)
+          if (treinoAtual && others) {
+            return [...treinoAtual, ...others]
+          }
+        
+      })
     }
     getData()
     getData2()
     console.log(planos);
 
   }, [])
+
   const form = useForm()
   const update = form.handleSubmit(async (data) => {
 
@@ -96,7 +113,7 @@ export function Edite({ user }: { user: Aluno }) {
 
     }
   })
-  
+
 
   return <div className=" w-full space-y-3 ">
     <form onSubmit={update}>
@@ -105,7 +122,7 @@ export function Edite({ user }: { user: Aluno }) {
         <div className="flex max-sm:flex-col">
           <div className="w-2/6 max-sm:w-full first-letter:h-full ">
             <div className={`w-40 h-40 mb-4 m-auto ${file ? 'bg-bg border-2 border-yellow-400' : 'bg-yellow-400'} ${user.img ? 'bg-zinc-900 border-yellow-400 border-2' : null} flex justify-center items-center rounded-full`}>
-              {file ? <img className="w-32 h-32 rounded-full" src={URL.createObjectURL(file)} alt="img" width={100} height={100} /> : user.img ? <img className="w-32 h-32 rounded-full" src={`${process.env.NEXT_PUBLIC_API_URL}/public/users/${user.img}`} alt="img" width={100} height={100}/> : null }
+              {file ? <img className="w-32 h-32 rounded-full" src={URL.createObjectURL(file)} alt="img" width={100} height={100} /> : user.img ? <img className="w-32 h-32 rounded-full" src={`${process.env.NEXT_PUBLIC_API_URL}/public/users/${user.img}`} alt="img" width={100} height={100} /> : null}
 
               <button className="absolute z-10 bg-bg rounded-md p-4">
                 <LuImagePlus className="m-auto text-yellow-400 font-bold" size={30} />
@@ -137,12 +154,12 @@ export function Edite({ user }: { user: Aluno }) {
               <h1 className="text-zinc-300 font-bold">CPF:</h1>
               <div className={`${cpf ? 'border-green-400' : 'border-2 border-red-500'} bg-bg rounded-lg px-2 py-1 space-x-2  flex items-center`}>
                 <MdPassword className="w-5 h-5 text-yellow-400" />
-                <InputMask className=" py-3 text-zinc-300 bg-bg rounded-lg outline-none "  mask='999.999.999-99' defaultValue={`${user.cpf}`} color="black" type="text" required
-                {...form.register('cpf')} onChange={(v)=>{
-                  if(v.target.value.length === 14){
-                    setCpf(cpfValidator(v.target.value))
-                  }
-                }}/>
+                <InputMask className=" py-3 text-zinc-300 bg-bg rounded-lg outline-none " mask='999.999.999-99' defaultValue={`${user.cpf}`} color="black" type="text" required
+                  {...form.register('cpf')} onChange={(v) => {
+                    if (v.target.value.length === 14) {
+                      setCpf(cpfValidator(v.target.value))
+                    }
+                  }} />
               </div>
             </div>
             <div className="flex flex-col justify-stretch" >
@@ -162,7 +179,7 @@ export function Edite({ user }: { user: Aluno }) {
 
             <div className="flex flex-col justify-stretch" >
               <h1 className="text-zinc-300 font-bold">Data de nascimento:</h1>
-              <input className="px-3 py-3 text-zinc-300 bg-bg rounded-lg " required  type="date" {...form.register('data')} />
+              <input className="px-3 py-3 text-zinc-300 bg-bg rounded-lg " required type="date" {...form.register('data')} />
             </div>
 
             <div className="flex flex-col justify-stretch" >
@@ -185,7 +202,7 @@ export function Edite({ user }: { user: Aluno }) {
                 <MdWorkOutline className="w-5 h-5 text-yellow-400" />
                 <select className="bg-bg w-full text-zinc-300 rounded-lg p-3" required defaultValue={`${user.planoId}`} id="planos " {...form.register('planoId')}>
                   {planos?.map(p => {
-                    return <option key={`${p.id}`} value={p.id as string}>{p.name}</option>
+                    return <option key={`${p.id}`} value={`${p.id}`}>{p.name}</option>
                   })}
                 </select>
 
@@ -194,7 +211,7 @@ export function Edite({ user }: { user: Aluno }) {
 
             <div className="flex flex-col justify-stretch" >
               <h1 className="text-zinc-300 font-bold">Data:</h1>
-              <input className="px-3 py-3 text-zinc-300 bg-bg rounded-lg " required defaultValue={`${user.mensalidade}`}  type="date" {...form.register('mensalidade')} />
+              <input className="px-3 py-3 text-zinc-300 bg-bg rounded-lg " required defaultValue={`${user.mensalidade}`} type="date" {...form.register('mensalidade')} />
             </div>
             <div className="flex flex-col justify-stretch" >
               <h1 className="text-zinc-300 font-bold">Objetivo:</h1>

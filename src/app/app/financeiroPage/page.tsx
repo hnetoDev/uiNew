@@ -20,31 +20,32 @@ export default function FinanceiroPage() {
   const [data, setData] = useState<Entrada>();
   const [entradaFiltrada, setEntradaFiltrada] = useState<EntradaSimples[]|undefined>(undefined);
   const [user, setUser] = useState<{ value: String; label: String; }[]>()
-
+  const [index,setIndex] = useState('1');
   
 
 
   const filterColors = async (inputValue: string) => {
-    const usera:Aluno[] = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/search`,{
+    const usera = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/search`,{
       method:"POST",
       headers:{
         "Content-Type": "application/json"
       },
       body:JSON.stringify({
-        search:inputValue,
-        status:undefined
+        search:'',
+        status:undefined,
+        index:'1',
       })
     }).then(async(u) =>{
       return await u.json()
     })
     setUser(()=>{
-      const data = usera.map(u => {
+      const data = usera['users'].map((u:Aluno) => {
         return {value: u.id,label:u.name};
       })
       return data
     })
     if(user){
-      return user
+      return user.filter(u =>u.label.toLowerCase().includes(inputValue.toLowerCase()))
     }
     return [{value:undefined,label:""}]
   };
@@ -68,11 +69,16 @@ export default function FinanceiroPage() {
   useEffect(() => {
 
     async function getData() {
-
       const getData = new Date();
       const month = getData.getMonth()
       const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/entrada/mensal/${month}`, {
-        method: 'GET'
+        method: 'POST',
+        headers:{
+          'Content-type': 'application/json'
+        },
+        body:JSON.stringify({
+          index: index
+        })
 
       });
       const resEntrada: Entrada = await data.json()
@@ -84,7 +90,7 @@ export default function FinanceiroPage() {
     getData()
 
 
-  }, [])
+  }, [ ,data,index])
   let count = 0
 
 
@@ -109,13 +115,22 @@ export default function FinanceiroPage() {
     <div className="p-6 py-0 pt-8 flex items-center justify-between max-sm:flex-col space-x-3 ">
       <h1 className="text-4xl font-bold text-white">Entradas</h1>
       <div className="bg-zinc-900 space-x-2 flex">
-        <AsyncSelect blurInputOnSelect onChange={async(v)=>{
+        <AsyncSelect  blurInputOnSelect onChange={async(v)=>{
           if(v?.value !== undefined){
             const res:EntradaSimples[] = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/entrada/user/${v?.value}`).then(async(res) => await res.json())
             return setEntradaFiltrada(res)
           }
           return setEntradaFiltrada(undefined)
-        }} className="react-select-container"   cacheOptions placeholder={'Busque por Aluno'} loadOptions={loadOptions} defaultOptions />
+        }} className="react-select-container"   cacheOptions placeholder={'Busque por Aluno'} loadOptions={loadOptions}  styles={{control:(baseStyles,state)=>({
+        ...baseStyles,
+          width:'20rem',
+          outlineWidth:'0px',
+          padding: '0.4rem',
+          color: 'white',
+          background: '#121212',
+          border: 'none',
+        })
+        }} defaultOptions />
       </div>
     </div>
     <div className="w-full mt-5 h-max m-auto py-0  p-6 ">
@@ -133,7 +148,7 @@ export default function FinanceiroPage() {
           <h1 className="text-white m-auto">Data</h1>
         </div>
       </div>
-      {data ? <Financeiro dataA={data!} entradaFilter={entradaFiltrada} /> : null}
+      {data ? <Financeiro setIndex={setIndex} dataA={data!} entradaFilter={entradaFiltrada} /> : null}
     </div>
 
   </div>

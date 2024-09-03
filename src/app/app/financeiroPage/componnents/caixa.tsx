@@ -24,7 +24,7 @@ export function Caixa({caixa}:{caixa:Entrada}){
       </div>
 
       <div className="bg-bg border max-sm:w-full border-yellow-400 rounded-lg p-4 items-center justify-center">
-        <h1 className="text-xl text-white font-bold text-center">Pix:</h1>
+        <h1 className="text-xl text-white font-bold text-center">Pix</h1>
         <h1 className="font-bold text-center text-green-400 text-xl">R${caixa.pix ? String(caixa.pix) : '00' },00</h1>
       </div>
 

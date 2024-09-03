@@ -143,7 +143,7 @@ export function Add({ data, setData }: { data?: Aluno[], setData: Dispatch<SetSt
 
   return <div className=" w-full   space-y-3 ">
     <form onSubmit={update}>
-      <h1 className="text-white font-bold text-2xl text-center">Adicione um novo aluno</h1>
+      <h1 className="text-white font-bold text-2xl text-center fontC">Adicione um novo aluno</h1>
       <div className="mx-auto rounded-lg space-y-3  p-4 ">
         <div className="flex max-sm:flex-col">
           <div className="w-2/6 max-sm:w-full first-letter:h-full ">
@@ -160,14 +160,14 @@ export function Add({ data, setData }: { data?: Aluno[], setData: Dispatch<SetSt
             </div>
             <div className="space-y-4 flex  flex-col justify-stretch">
               <div className="flex flex-col justify-stretch">
-                <h1 className="text-zinc-300 font-bold">Nome:</h1>
+                <h1 className="text-zinc-300 font-bold fontC">Nome:</h1>
                 <div className="bg-bg rounded-lg px-2 py-1 space-x-2  flex items-center">
                   <IoPerson className="w-5 h-5 text-yellow-400" />
                   <input className=" py-3 text-zinc-300 bg-bg rounded-lg outline-none " type="text" required {...form.register('name')} />
                 </div>
               </div>
               <div className="flex flex-col justify-stretch" >
-                <h1 className="text-zinc-300 font-bold">Email:</h1>
+                <h1 className="text-zinc-300 font-bold fontC">Email:</h1>
                 <div className="bg-bg rounded-lg px-2 py-1 space-x-2  flex items-center">
                   <MdEmail className="w-5 h-5 text-yellow-400" />
                   <input className=" py-3 text-zinc-300 bg-bg rounded-lg outline-none " type="text" required {...form.register('email')} />
@@ -177,7 +177,7 @@ export function Add({ data, setData }: { data?: Aluno[], setData: Dispatch<SetSt
           </div>
           <div className="ml-4 w-3/6 max-sm:w-full max-sm:ml-0 flex flex-col space-y-4">
             <div className="flex flex-col justify-stretch" >
-              <h1 className="text-zinc-300 font-bold">CPF:</h1>
+              <h1 className="text-zinc-300 font-bold fontC">CPF:</h1>
               <div className={`${cpf ? '' : 'border-2 border-red-500'} bg-bg rounded-lg px-2 py-1 space-x-2  flex items-center`}>
                 <MdPassword className="w-5 h-5 text-yellow-400" />
                 <InputMask className=" py-3 text-zinc-300 bg-bg rounded-lg outline-none "  mask='999.999.999-99' color="black" type="text" required
@@ -187,14 +187,14 @@ export function Add({ data, setData }: { data?: Aluno[], setData: Dispatch<SetSt
               </div>
             </div>
             <div className="flex flex-col justify-stretch" >
-              <h1 className="text-zinc-300 font-bold">Tel:</h1>
+              <h1 className="text-zinc-300 font-bold fontC">Tel:</h1>
               <div className="bg-bg rounded-lg px-2 py-1 space-x-2  flex items-center">
                 <PhoneIcon className="w-5 h-5 text-yellow-400" />
                 <InputMask mask='(99) 99999-9999' className=" py-3 text-zinc-300 bg-bg rounded-lg outline-none " type="text" required {...form.register('tel')} />
               </div>
             </div>
             <div className="flex flex-col justify-stretch" >
-              <h1 className="text-zinc-300 font-bold">Tel. Emergência:</h1>
+              <h1 className="text-zinc-300 font-bold fontC">Tel. Emergência:</h1>
               <div className="bg-bg rounded-lg px-2 py-1 space-x-2  flex items-center">
                 <PhoneCall className="w-5 h-5 text-yellow-400" />
                 <InputMask mask='(99) 99999-9999' className=" py-3 text-zinc-300 bg-bg rounded-lg outline-none " type="text" required {...form.register('emerg')} />
@@ -202,12 +202,12 @@ export function Add({ data, setData }: { data?: Aluno[], setData: Dispatch<SetSt
             </div>
 
             <div className="flex flex-col justify-stretch" >
-              <h1 className="text-zinc-300 font-bold">Data de nascimento:</h1>
+              <h1 className="text-zinc-300 font-bold fontC">Data de nascimento:</h1>
               <input className="px-3 py-3 text-zinc-300 bg-bg rounded-lg "  type="date" {...form.register('data')} />
             </div>
 
             <div className="flex flex-col justify-stretch" >
-              <h1 className="text-zinc-300 font-bold">Gênero:</h1>
+              <h1 className="text-zinc-300 font-bold fontC">Gênero:</h1>
               <div className="bg-bg rounded-lg px-2 py-1 space-x-2  flex items-center">
                 <FaGenderless className="w-5 h-5 text-yellow-400" />
                 <select className="bg-bg w-full  text-zinc-300 rounded-lg p-3" required defaultValue={''} id="genero" {...form.register('genero')}>
@@ -221,10 +221,11 @@ export function Add({ data, setData }: { data?: Aluno[], setData: Dispatch<SetSt
           <div className="ml-4 space-y-4 max-sm:ml-0">
 
             <div className="flex flex-col justify-stretch" >
-              <h1 className="text-zinc-300 font-bold">Planos:</h1>
+              <h1 className="text-zinc-300 font-bold fontC">Planos:</h1>
               <div className="bg-bg rounded-lg px-2 py-1 space-x-2  flex items-center">
                 <MdWorkOutline className="w-5 h-5 text-yellow-400" />
-                <select className="bg-bg w-full text-zinc-300 rounded-lg p-3" required defaultValue={''} id="planos " {...form.register('planoId')}>
+                <select className="bg-bg w-full text-zinc-300 rounded-lg p-3" defaultValue={''} id="planos " {...form.register('planoId')}>
+                  <option value={''}>Sem Plano</option>
                   {planos?.map(p => {
                     return <option key={`${p.id}`} value={p.id as string}>{p.name}</option>
                   })}
@@ -234,18 +235,18 @@ export function Add({ data, setData }: { data?: Aluno[], setData: Dispatch<SetSt
             </div>
 
             <div className="flex flex-col justify-stretch" >
-              <h1 className="text-zinc-300 font-bold">Data:</h1>
+              <h1 className="text-zinc-300 font-bold fontC">Data:</h1>
               <input className="px-3 py-3 text-zinc-300 bg-bg rounded-lg " required  type="date" {...form.register('mensalidade')} />
             </div>
             <div className="flex flex-col justify-stretch" >
-              <h1 className="text-zinc-300 font-bold">Objetivo:</h1>
+              <h1 className="text-zinc-300 font-bold fontC">Objetivo:</h1>
               <div className="bg-bg rounded-lg px-2 py-1 space-x-2  flex items-center">
                 <TargetIcon className="w-5 h-5 text-yellow-400" />
                 <input className=" py-3 text-zinc-300 bg-bg rounded-lg outline-none " type="text"  {...form.register('objetivo')} />
               </div>
             </div>
             <div className="flex flex-col justify-stretch" >
-              <h1 className="text-zinc-300 font-bold">Senha:</h1>
+              <h1 className="text-zinc-300 font-bold fontC">Senha:</h1>
               <div className="bg-bg rounded-lg px-2 py-1 space-x-2  flex items-center">
                 <LockIcon className="w-5 h-5 text-yellow-400" />
                 <input className=" py-3 text-zinc-300 bg-bg rounded-lg outline-none " type="text" required {...form.register('password')} />
@@ -256,7 +257,7 @@ export function Add({ data, setData }: { data?: Aluno[], setData: Dispatch<SetSt
               <h1 className="text-zinc-300 font-bold">Treino:</h1>
               <div className="bg-bg rounded-lg px-2 py-1 space-x-2  flex items-center">
                 <CgGym className="w-5 h-5 text-yellow-400" />
-                <select className="bg-bg w-full  text-zinc-300 rounded-lg p-3" defaultValue={''} required id="treino" {...form.register('treinoId')}>
+                <select className="bg-bg w-full  text-zinc-300 rounded-lg p-3" defaultValue={''}  id="treino" {...form.register('treinoId')}>
                   {treinos?.map((t) => {
                     return <option className="p-3" value={t.id as string} key={`${t.id}`}>{t.name}</option>
                   })}

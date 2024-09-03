@@ -66,23 +66,23 @@ export function Planos({data}:{data:Plano[]}){
   <div className="flex">
           <div className="flex p-4 space-x-3 items-center">
             <div>
-              <FaBackward onClick={()=>{
+              <FaBackward className=" active:text-yellow-400 text-white"  onClick={()=>{
                 if(page === 1) return
                 let s = [nSlice[0] - 10,nSlice[1] - 10]
                 let n = page - 1
                 setPage(n)
                 setSlice(s)
-              }} color="white"/>
+              }} />
             </div>
             <div className="text-white">{page}</div>
             <div>
-              <FaForward onClick={()=>{
+              <FaForward className=" active:text-yellow-400 text-white"  onClick={()=>{
                 if(page === pagesTotal) return
                 let s = [nSlice[0] + 10,nSlice[1] + 10]
                 let n = page + 1
                 setPage(n)
                 setSlice(s)
-              }} color="white"/>
+              }}/>
             </div>
           </div>
           <div className="flex p-4 items-center">

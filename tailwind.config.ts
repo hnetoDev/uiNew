@@ -27,6 +27,7 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         bg:"#121212",
+        yellowMod:'#FFEB3B',
         card:'#1B1A1A',
         shad:"#ffff0045",
         primary: {

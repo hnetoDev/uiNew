@@ -2,7 +2,7 @@
 
 import {Entrada, EntradaSimples } from "@/app/types"
 import Swipeable from "../../_componnents/swipeable"
-import { useState } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
 import { FaBackward, FaCheckCircle, FaForward } from "react-icons/fa"
 import '../style.css'
 
@@ -11,22 +11,17 @@ import { useRouter } from "next/navigation"
 import { toast } from "@/components/ui/use-toast"
 import { CardEntrada } from "../../financeiroPage/componnents/cardEntrada"
 import { Edite } from "../../alunosPage/components/edit"
-export function Financeiro({dataA,entradaFilter}:{dataA:Entrada,entradaFilter:EntradaSimples[]|undefined}){
+export function Financeiro({dataA,entradaFilter,setIndex}:{setIndex:Dispatch<SetStateAction<string>>,dataA:Entrada,entradaFilter:EntradaSimples[]|undefined}){
   const routes = useRouter()
   
-  const data = entradaFilter !== undefined ? entradaFilter : dataA.entradas
+  const user = entradaFilter !== undefined ? entradaFilter : dataA.entradas
   let count = 1
   const [page,setPage] = useState(count)
 
-  console.log(data.length)
-  console.log(data.length / 10)
-  console.log()
-  let pagesTotal = Math.round(data.length / 10)
-  if(data.length < 10){
-    pagesTotal = 1
-  }
-  const [nSlice, setSlice] = useState([0,10])
-  const user = data.slice(nSlice[0],nSlice[1])
+  
+  let pagesTotal = dataA.pages;
+  
+  
   
   return <div className="w-full css2 max-sm:overflow-x-auto overflow-x-hidden ">
   {user.map(u =>{
@@ -40,21 +35,23 @@ export function Financeiro({dataA,entradaFilter}:{dataA:Entrada,entradaFilter:En
             <div>
               <FaBackward onClick={()=>{
                 if(page === 1) return
-                let s = [nSlice[0] - 10,nSlice[1] - 10]
+          
                 let n = page - 1
                 setPage(n)
-                setSlice(s)
-              }} color="white"/>
+                setIndex(prev => `${Number(prev) - 1}`)
+             
+              }} className=" active:text-yellow-400 text-white" />
             </div>
             <div className="text-white">{page}</div>
             <div>
               <FaForward onClick={()=>{
                 if(page === pagesTotal) return
-                let s = [nSlice[0] + 10,nSlice[1] + 10]
+              
                 let n = page + 1
                 setPage(n)
-                setSlice(s)
-              }} color="white"/>
+                setIndex(prev => `${Number(prev) + 1}`)
+              
+              }} className=" active:text-yellow-400 text-white" />
             </div>
           </div>
           <div className="flex p-4 items-center">
